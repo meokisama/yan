@@ -1,0 +1,58 @@
+export const metadata = {
+  title: "Select",
+  description: "A pill trigger with a puffy menu that pops out underneath.",
+}
+
+# Select
+
+A pill-shaped trigger with a puffy menu that pops out underneath. The chosen
+option gets a little heart.
+
+<ComponentPreview name="select-demo" />
+
+## Installation
+
+<InstallCommand item="select" />
+
+## Usage
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+```
+
+```tsx
+<Select>
+  <SelectTrigger className="w-56">
+    <SelectValue placeholder="Pick a flavour" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="sakura">Sakura</SelectItem>
+    <SelectItem value="matcha">Matcha</SelectItem>
+  </SelectContent>
+</Select>
+```
+
+Group options with `SelectGroup`, `SelectLabel` and `SelectSeparator`, as in the demo above.
+
+## Accessibility
+
+- Built on Radix Select: arrow keys, typeahead, Home/End and Escape all work, and focus returns to the trigger.
+- Give the trigger an `aria-label` when there is no visible label.
+- With `prefers-reduced-motion: reduce`, the menu appears without the bounce.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on SelectContent: bounce in, fade in, or just appear." },
+    { name: "position", type: "\"popper\" | \"item-aligned\"", default: "\"popper\"", description: "Set on SelectContent. How the menu is placed relative to the trigger." },
+    { name: "value / defaultValue", type: "string", description: "Set on Select. Controlled and uncontrolled value." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Set on Select. Called when an option is chosen." },
+  ]}
+/>

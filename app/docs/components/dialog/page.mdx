@@ -1,0 +1,60 @@
+export const metadata = {
+  title: "Dialog",
+  description: "A puffy modal card that bounces onto the page with sparkles.",
+}
+
+# Dialog
+
+A puffy modal card. It bounces onto the page over a blurred backdrop and, in
+kawaii mode, throws a few sparkles from its top edge.
+
+<ComponentPreview name="dialog-demo" />
+
+## Installation
+
+<InstallCommand item="dialog" />
+
+## Usage
+
+```tsx
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+```
+
+```tsx
+<Dialog>
+  <DialogTrigger>Open</DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Share your last mochi?</DialogTitle>
+      <DialogDescription>You can always buy another one tomorrow.</DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>
+```
+
+Use `DialogFooter` for actions and wrap any button in `DialogClose asChild` to make it close the dialog.
+
+## Accessibility
+
+- Built on Radix Dialog: focus is trapped inside, Escape and a backdrop click close it, and focus returns to the trigger.
+- Always include a `DialogTitle`; add a `DialogDescription` when the title alone is not enough.
+- With `prefers-reduced-motion: reduce`, the bounce and the sparkles are skipped.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on DialogContent: bounce in with sparkles, fade in, or just appear." },
+    { name: "fx", type: "BurstOptions", description: "Set on DialogContent. Overrides for the opening burst." },
+    { name: "hideClose", type: "boolean", default: "false", description: "Set on DialogContent. Hide the round close button in the corner." },
+    { name: "open / defaultOpen", type: "boolean", description: "Set on Dialog. Controlled and uncontrolled state." },
+    { name: "onOpenChange", type: "(open: boolean) => void", description: "Set on Dialog. Called when it opens or closes." },
+  ]}
+/>

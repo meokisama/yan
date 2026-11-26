@@ -1,0 +1,49 @@
+export const metadata = {
+  title: "Tabs",
+  description: "Tabs where the active one is a gummy candy sitting in a tray.",
+}
+
+# Tabs
+
+A tray of tabs where the active one is a gummy candy. It pops when you pick it
+and the panel floats up into place.
+
+<ComponentPreview name="tabs-demo" />
+
+## Installation
+
+<InstallCommand item="tabs" />
+
+## Usage
+
+```tsx
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+```
+
+```tsx
+<Tabs defaultValue="sweet">
+  <TabsList>
+    <TabsTrigger value="sweet">Sweet</TabsTrigger>
+    <TabsTrigger value="sour">Sour</TabsTrigger>
+  </TabsList>
+  <TabsContent value="sweet">Strawberry daifuku.</TabsContent>
+  <TabsContent value="sour">Lemon drops.</TabsContent>
+</Tabs>
+```
+
+## Accessibility
+
+- Built on Radix Tabs: arrow keys move between tabs, Home and End jump to the ends, and panels are linked with `aria-controls`.
+- The sparkle burst only fires for pointer presses; keyboard users get the pop animation.
+- With `prefers-reduced-motion: reduce`, the pop, the sparkles and the panel float are skipped.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on TabsTrigger: pop and sparkles, pop only, or neither." },
+    { name: "value / defaultValue", type: "string", description: "Set on Tabs. The active tab." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Set on Tabs. Called when the active tab changes." },
+    { name: "orientation", type: "\"horizontal\" | \"vertical\"", default: "\"horizontal\"", description: "Set on Tabs. Changes which arrow keys move focus." },
+  ]}
+/>

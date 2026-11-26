@@ -1,0 +1,60 @@
+export const metadata = {
+  title: "Installation",
+  description: "Add Yan components to a React + Tailwind v4 project.",
+}
+
+# Installation
+
+Yan installs through the [shadcn CLI](https://ui.shadcn.com/docs/cli). Any project
+the CLI supports works: Next.js, Vite, React Router, Astro and more.
+
+## 1. Set up shadcn
+
+If your project doesn't have a `components.json` yet, initialize it first:
+
+```bash
+npx shadcn@latest init
+```
+
+## 2. Add a component
+
+Point the CLI at Yan's registry. Here's Button:
+
+<InstallCommand item="button" />
+
+The CLI also pulls in what the component needs:
+
+- `yan-theme`: the pastel tokens, candy surface utilities and keyframes, merged into your global CSS.
+- `yan-fx`: the effects layer, written to `lib/yan-fx.ts`.
+- `radix-ui` and `class-variance-authority` from npm.
+
+## 3. (Optional) A rounded font
+
+Yan looks best with a rounded face. Onomatopoeia stickers use `--yan-font-fx`,
+which falls back to _M PLUS Rounded 1c_ and then the system font. With Next.js:
+
+```tsx
+import { M_PLUS_Rounded_1c } from "next/font/google"
+
+const rounded = M_PLUS_Rounded_1c({
+  variable: "--font-rounded",
+  weight: ["400", "700", "900"],
+  subsets: ["latin"],
+})
+```
+
+```css
+:root {
+  --yan-font-fx: var(--font-rounded);
+}
+```
+
+## Use it
+
+```tsx
+import { Button } from "@/components/ui/button"
+
+export function Hello() {
+  return <Button sfx="やった！">Save</Button>
+}
+```

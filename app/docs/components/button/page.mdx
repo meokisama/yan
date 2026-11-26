@@ -1,0 +1,74 @@
+export const metadata = {
+  title: "Button",
+  description: "A mochi-squishy button that pops sparkles, hearts and ぷにっ when clicked.",
+}
+
+# Button
+
+A mochi-squishy button. It squashes when pressed, wobbles back like jelly, and
+pops sparkles, hearts and a little onomatopoeia when clicked.
+
+<ComponentPreview name="button-demo" />
+
+## Installation
+
+<InstallCommand item="button" />
+
+## Usage
+
+```tsx
+import { Button } from "@/components/ui/button"
+```
+
+```tsx
+<Button>おはよう！</Button>
+```
+
+## Examples
+
+### Variants
+
+<ComponentPreview name="button-variants" />
+
+### Intensity
+
+`kawaii` is the default. Use `subtle` where you want a lighter touch, or `off`
+for a plain button. Set your own sticker with `sfx`, or hide it with `sfx={false}`.
+
+<ComponentPreview name="button-intensity" />
+
+### Sizes & custom effects
+
+Pass `fx` to change the burst: shapes, colors, count and power.
+
+<ComponentPreview name="button-sizes" />
+
+### As a link
+
+Use `asChild` to give another element (such as Next.js `Link`) the button's
+look and behavior.
+
+```tsx
+<Button asChild>
+  <Link href="/docs">Get started</Link>
+</Button>
+```
+
+## Accessibility
+
+- It renders a native `<button>`, so focus, Enter and Space work as usual. Keyboard clicks burst from the button's center.
+- The effects canvas is `aria-hidden` and ignores the pointer.
+- With `prefers-reduced-motion: reduce`, squish and particles are skipped.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "secondary" | "mint" | "destructive" | "outline" | "ghost" | "link"', default: '"default"', description: "Color and surface style." },
+    { name: "size", type: '"sm" | "default" | "lg" | "icon"', default: '"default"', description: "Height and padding." },
+    { name: "intensity", type: '"kawaii" | "subtle" | "off"', default: '"kawaii"', description: "How much moe: motion, particles and sticker." },
+    { name: "sfx", type: "string | false", default: "random", description: "Onomatopoeia shown in kawaii mode. false hides it." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the click burst (shapes, colors, count, power, size…)." },
+    { name: "asChild", type: "boolean", default: "false", description: "Merge props onto the child element instead of rendering a <button>." },
+  ]}
+/>

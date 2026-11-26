@@ -1,0 +1,30 @@
+export const metadata = {
+  title: "Introduction",
+  description: "What Yan is and how it thinks.",
+}
+
+# Introduction
+
+Yan (やん) is a collection of **moe kawaii components** you copy into your app.
+It works the way [shadcn/ui](https://ui.shadcn.com) does: not an npm package
+you depend on, but source code you own, delivered by the shadcn CLI.
+
+What Yan adds is _feel_. Buttons squish like mochi and wobble back like jelly.
+Clicks pop sparkles, hearts and little onomatopoeia stickers (ぷにっ, キラッ).
+Colors are pastel candy on cream paper by day and plum night sky by night.
+
+<ComponentPreview name="button-intensity" />
+
+## Principles
+
+- **You own the code.** Every component is a single file in your repo. Change anything.
+- **Radix underneath.** Keyboard, focus and ARIA behavior come from Radix primitives, so cute never means inaccessible.
+- **One dial for moe.** Every component takes `intensity`: `"kawaii"`, `"subtle"` or `"off"`. Ship the same component on a landing page and in an admin panel.
+- **Motion that respects people.** With `prefers-reduced-motion`, effects are skipped and state changes stay instant.
+- **Tiny effects layer.** All particles are drawn by `yan-fx`, one click-through canvas with no dependencies. It sleeps when nothing is animating.
+- **shadcn compatible.** Yan uses shadcn's token names (`--primary`, `--ring`, …), so you can adopt it one component at a time.
+
+## Status
+
+Yan is at v0 with thirteen components: Avatar, Badge, Button, Checkbox, Dialog, Input,
+Progress, Select, Slider, Switch, Tabs, Toast and Tooltip.

@@ -1,0 +1,71 @@
+export const metadata = {
+  title: "Theming & intensity",
+  description: "Tokens, dark mode, the intensity dial and the yan-fx API.",
+}
+
+# Theming & intensity
+
+## Tokens
+
+Yan uses shadcn's token names, so components drop into an existing shadcn theme.
+On top of those it adds a candy palette:
+
+```css
+:root {
+  --primary: oklch(0.8 0.135 355);        /* sakura */
+  --secondary: oklch(0.83 0.095 300);     /* lavender */
+  --yan-mint: oklch(0.88 0.1 165);
+  --yan-sky: oklch(0.86 0.08 230);
+  --yan-lemon: oklch(0.94 0.12 98);
+  --yan-peach: oklch(0.87 0.09 50);
+
+  /* the "edge" under a candy surface */
+  --yan-sakura-edge: oklch(0.65 0.19 355);
+
+  /* particle colors used by yan-fx */
+  --yan-fx-1: oklch(0.78 0.17 355);
+  /* … --yan-fx-5 */
+}
+```
+
+Dark mode follows shadcn's convention: put the `dark` class on `<html>`.
+
+## The intensity dial
+
+Every Yan component accepts `intensity`:
+
+- `"kawaii"` (default): squish and jelly motion, sparkles + hearts + stars, and an onomatopoeia sticker.
+- `"subtle"`: a small bounce and a few sparkles. Polite enough for dashboards.
+- `"off"`: a plain component. Same styling, no motion, no particles.
+
+<ComponentPreview name="button-intensity" />
+
+## yan-fx
+
+All particles come from `lib/yan-fx.ts`. You can call it directly:
+
+```tsx
+import { burst } from "@/lib/yan-fx"
+
+// at a point in the viewport…
+burst({ x: 200, y: 120 }, { shapes: ["heart"], count: 12, word: "ドキッ" })
+
+// …or at the center of an element
+burst(document.querySelector("#save")!, { shapes: ["petal"], count: 20 })
+```
+
+<PropsTable
+  rows={[
+    { name: "shapes", type: "FxShape[]", default: '["sparkle"]', description: "Shapes to pick from at random." },
+    { name: "count", type: "number", default: "10", description: "Number of particles." },
+    { name: "word", type: "string | null", default: "null", description: "Onomatopoeia sticker drawn at the origin." },
+    { name: "colors", type: "string[]", default: "--yan-fx-1 … 5", description: "CSS colors or custom property names." },
+    { name: "power", type: "number", default: "1", description: "Velocity multiplier." },
+    { name: "size", type: "number", default: "9", description: "Base particle size in px." },
+    { name: "angle / spread", type: "number", default: "up / full circle", description: "Aim the burst (radians)." },
+    { name: "gravity", type: "number", default: "420", description: "Downward pull in px/s²." },
+  ]}
+/>
+
+> Shapes: `sparkle`, `heart`, `star`, `petal`, `bubble`, `dot`. Colors accept any CSS
+> color or a custom property name such as `"--yan-fx-3"`.

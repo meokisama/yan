@@ -1,0 +1,42 @@
+export const metadata = {
+  title: "Switch",
+  description: "A switch whose thumb is a tiny mochi: asleep when off, wide awake when on.",
+}
+
+# Switch
+
+A switch whose thumb is a tiny mochi. It naps while the switch is off, wakes up
+with a bounce when you turn it on, and pops a few hearts on the way.
+
+<ComponentPreview name="switch-demo" />
+
+## Installation
+
+<InstallCommand item="switch" />
+
+## Usage
+
+```tsx
+import { Switch } from "@/components/ui/switch"
+```
+
+```tsx
+<Switch defaultChecked aria-label="Sparkles" />
+```
+
+## Accessibility
+
+- Built on Radix Switch: it renders a `<button role="switch">` and toggles with Space or Enter.
+- Wrap it in a `<label>` or pass `aria-label`; the mochi face is decorative and hidden from assistive tech.
+- With `prefers-reduced-motion: reduce`, the burst is skipped.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "How much moe: bounce and hearts, a few sparkles, or neither." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the burst fired when the switch turns on." },
+    { name: "checked / defaultChecked", type: "boolean", description: "Controlled and uncontrolled state, as in Radix." },
+    { name: "onCheckedChange", type: "(checked: boolean) => void", description: "Called when the state changes." },
+  ]}
+/>

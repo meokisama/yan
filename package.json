@@ -1,0 +1,46 @@
+{
+  "name": "yan",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Yan: moe kawaii components you copy into your app. Built on Radix + Tailwind, distributed via the shadcn registry.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx scripts/build-registry.mts && next dev",
+    "build": "yarn registry:build && next build",
+    "start": "next start",
+    "lint": "eslint",
+    "registry:build": "tsx scripts/build-registry.mts && shadcn build",
+    "typecheck": "next typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^16.4.6",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.80.0",
+    "motion": "^14.14.0",
+    "next": "16.4.6",
+    "radix-ui": "^1.8.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "shiki": "^4.6.0",
+    "tailwind-merge": "^3.7.1",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "4.3.3",
+    "@types/mdx": "^2.0.14",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.187.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.6",
+    "shadcn": "^4.23.0",
+    "tailwindcss": "4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  },
+  "packageManager": "yarn@4.19.0"
+}

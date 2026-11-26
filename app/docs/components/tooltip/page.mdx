@@ -1,0 +1,47 @@
+export const metadata = {
+  title: "Tooltip",
+  description: "A little speech bubble that pops out of whatever it describes.",
+}
+
+# Tooltip
+
+A little speech bubble that pops out of whatever it describes, with a bounce.
+
+<ComponentPreview name="tooltip-demo" />
+
+## Installation
+
+<InstallCommand item="tooltip" />
+
+## Usage
+
+```tsx
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+```
+
+```tsx
+<Tooltip>
+  <TooltipTrigger>Hover me</TooltipTrigger>
+  <TooltipContent>ぽんっ!</TooltipContent>
+</Tooltip>
+```
+
+Each `Tooltip` brings its own provider. To share one delay across many tooltips,
+wrap them in `TooltipProvider` yourself.
+
+## Accessibility
+
+- Built on Radix Tooltip: it opens on hover and on keyboard focus, and closes with Escape.
+- A tooltip is a hint, not a label. Icon-only buttons still need `aria-label`.
+- With `prefers-reduced-motion: reduce`, the bubble appears without the bounce.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on TooltipContent: bounce in, fade in, or just appear." },
+    { name: "side", type: "\"top\" | \"right\" | \"bottom\" | \"left\"", default: "\"top\"", description: "Set on TooltipContent. Preferred side." },
+    { name: "sideOffset", type: "number", default: "8", description: "Set on TooltipContent. Gap between trigger and bubble, in px." },
+    { name: "delayDuration", type: "number", default: "150", description: "Set on Tooltip or TooltipProvider. Hover delay in ms." },
+  ]}
+/>

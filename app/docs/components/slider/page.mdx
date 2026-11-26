@@ -1,0 +1,49 @@
+export const metadata = {
+  title: "Slider",
+  description: "A candy-filled slider with a heart thumb that leaves sparkles as you drag.",
+}
+
+# Slider
+
+A candy-filled slider. The heart thumb grows when you grab it and leaves a trail
+of sparkles as it moves.
+
+<ComponentPreview name="slider-demo" />
+
+## Installation
+
+<InstallCommand item="slider" />
+
+## Usage
+
+```tsx
+import { Slider } from "@/components/ui/slider"
+```
+
+```tsx
+<Slider defaultValue={[64]} max={100} step={1} aria-label="Moe level" />
+```
+
+Pass two values for a range:
+
+```tsx
+<Slider defaultValue={[20, 80]} />
+```
+
+## Accessibility
+
+- Built on Radix Slider: arrow keys, Page Up/Down, Home and End all work, and each thumb is a `role="slider"`.
+- Give it an `aria-label` or `aria-labelledby`.
+- The sparkle trail is throttled and skipped entirely with `prefers-reduced-motion: reduce`.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii leaves a sparkle trail, subtle sparkles on release, off does neither." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the burst fired when a drag ends." },
+    { name: "value / defaultValue", type: "number[]", description: "One entry per thumb." },
+    { name: "min / max / step", type: "number", default: "0 / 100 / 1", description: "Range and increment." },
+    { name: "onValueChange / onValueCommit", type: "(value: number[]) => void", description: "While dragging, and when the drag ends." },
+  ]}
+/>

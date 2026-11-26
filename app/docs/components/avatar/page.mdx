@@ -1,0 +1,46 @@
+export const metadata = {
+  title: "Avatar",
+  description: "A sticker-style avatar with a white die-cut ring and candy fallbacks.",
+}
+
+# Avatar
+
+A sticker-style avatar with a white die-cut ring and a candy edge. When there is
+no image, the fallback takes the avatar's flavour.
+
+<ComponentPreview name="avatar-demo" />
+
+## Installation
+
+<InstallCommand item="avatar" />
+
+## Usage
+
+```tsx
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+```
+
+```tsx
+<Avatar variant="mint">
+  <AvatarImage src="/mochi-avatar.svg" alt="Mochi-chan" />
+  <AvatarFallback>MC</AvatarFallback>
+</Avatar>
+```
+
+Wrap several in `AvatarGroup` to overlap them into a row; the one under the pointer hops up.
+
+## Accessibility
+
+- Built on Radix Avatar: the fallback shows while the image loads and stays if it fails.
+- Give `AvatarImage` a meaningful `alt`, or an empty one when the name is already next to it.
+- Fallback initials are plain text, so they are read out. Keep them short.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "variant", type: "\"sakura\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\"", default: "\"sakura\"", description: "Flavour of the edge and the fallback." },
+    { name: "size", type: "\"sm\" | \"default\" | \"lg\"", default: "\"default\"", description: "Diameter: 32, 44 or 64 px." },
+    { name: "delayMs", type: "number", description: "Set on AvatarFallback. Wait before showing it, to avoid a flash on fast connections." },
+  ]}
+/>

@@ -1,0 +1,43 @@
+export const metadata = {
+  title: "Progress",
+  description: "A candy-cane progress bar that throws a little party at 100%.",
+}
+
+# Progress
+
+A candy-cane progress bar. The stripes scroll while it works, the fill overshoots
+a little as it grows, and it throws a small party when it reaches 100%.
+
+<ComponentPreview name="progress-demo" />
+
+## Installation
+
+<InstallCommand item="progress" />
+
+## Usage
+
+```tsx
+import { Progress } from "@/components/ui/progress"
+```
+
+```tsx
+<Progress value={60} aria-label="Upload" />
+```
+
+## Accessibility
+
+- Built on Radix Progress: `role="progressbar"` with `aria-valuenow` kept in sync.
+- Give it an `aria-label` describing what is loading.
+- With `prefers-reduced-motion: reduce`, the stripes stop, the width changes instantly and the party is skipped.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii animates the stripes and celebrates at 100%; subtle only sparkles; off is still." },
+    { name: "value", type: "number", default: "0", description: "Current progress." },
+    { name: "max", type: "number", default: "100", description: "Value that counts as complete." },
+    { name: "sfx", type: "string | false", default: "\"やった！\"", description: "Sticker shown at 100% in kawaii mode. false hides it." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the burst fired at 100%." },
+  ]}
+/>

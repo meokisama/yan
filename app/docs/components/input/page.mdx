@@ -1,0 +1,47 @@
+export const metadata = {
+  title: "Input",
+  description: "A pill-shaped field pressed into the page, with a candy ring on focus.",
+}
+
+# Input
+
+A pill-shaped text field that looks pressed into the page. It lights up with a
+candy ring on focus and, in kawaii mode, pops a few sparkles from its corner.
+
+<ComponentPreview name="input-demo" />
+
+## Installation
+
+<InstallCommand item="input" />
+
+## Usage
+
+```tsx
+import { Input } from "@/components/ui/input"
+```
+
+```tsx
+<Input type="email" placeholder="mochi@example.com" />
+```
+
+Mark a field invalid with `aria-invalid` and it turns coral:
+
+```tsx
+<Input aria-invalid defaultValue="not an email" />
+```
+
+## Accessibility
+
+- It renders a native `<input>`, so every input type, autofill and form validation work as usual.
+- Always pair it with a `<label>` (or `aria-label`); the placeholder is not a label.
+- The focus sparkles are decorative and skipped with `prefers-reduced-motion: reduce`.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii pops sparkles on focus. subtle and off keep only the focus ring." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the focus burst." },
+    { name: "...props", type: "React.ComponentProps<\"input\">", description: "Everything a native input accepts." },
+  ]}
+/>

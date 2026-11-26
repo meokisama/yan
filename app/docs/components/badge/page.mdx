@@ -1,0 +1,51 @@
+export const metadata = {
+  title: "Badge",
+  description: "A sticker-style label: candy fill, white outline, tiny edge shadow.",
+}
+
+# Badge
+
+A sticker-style label with a candy fill, a white die-cut outline and a tiny edge
+shadow. Six flavours and an outline.
+
+<ComponentPreview name="badge-demo" />
+
+## Installation
+
+<InstallCommand item="badge" />
+
+## Usage
+
+```tsx
+import { Badge } from "@/components/ui/badge"
+```
+
+```tsx
+<Badge variant="mint">Fresh</Badge>
+```
+
+Add `dot` for a twinkling status dot, or `asChild` to make a link look like a badge:
+
+```tsx
+<Badge dot>New</Badge>
+
+<Badge asChild variant="sky">
+  <a href="/changelog">v0.2</a>
+</Badge>
+```
+
+## Accessibility
+
+- It renders a plain `<span>`, so it is read inline with the surrounding text.
+- The twinkling dot is `aria-hidden` and stops with `prefers-reduced-motion: reduce`.
+- Color is never the only signal: keep the label text meaningful.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "variant", type: "\"default\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\" | \"outline\"", default: "\"default\"", description: "Candy flavour." },
+    { name: "dot", type: "boolean", default: "false", description: "Show a twinkling dot before the label." },
+    { name: "asChild", type: "boolean", default: "false", description: "Merge props onto the child element instead of rendering a <span>." },
+  ]}
+/>

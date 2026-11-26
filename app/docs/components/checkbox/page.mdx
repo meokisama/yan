@@ -1,0 +1,51 @@
+export const metadata = {
+  title: "Checkbox",
+  description: "A gummy checkbox with a self-drawing tick and a candy pop.",
+}
+
+# Checkbox
+
+A gummy checkbox. The tick draws itself, the box pops like a pressed candy and a
+few stars fly out.
+
+<ComponentPreview name="checkbox-demo" />
+
+## Installation
+
+<InstallCommand item="checkbox" />
+
+## Usage
+
+```tsx
+import { Checkbox } from "@/components/ui/checkbox"
+```
+
+```tsx
+<Checkbox defaultChecked aria-label="Pet the mochi" />
+```
+
+Pair it with a label. The checkbox is a `peer`, so siblings can react to its state:
+
+```tsx
+<label className="flex items-center gap-3">
+  <Checkbox />
+  <span className="peer-data-[state=checked]:line-through">Ship it</span>
+</label>
+```
+
+## Accessibility
+
+- Built on Radix Checkbox: `role="checkbox"`, toggles with Space, supports the indeterminate state.
+- The tick is an inline SVG that inherits `currentColor`.
+- With `prefers-reduced-motion: reduce`, the pop and the burst are skipped.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "How much moe: pop and stars, a few sparkles, or neither." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the burst fired when the box is checked." },
+    { name: "checked / defaultChecked", type: "boolean | \"indeterminate\"", description: "Controlled and uncontrolled state, as in Radix." },
+    { name: "onCheckedChange", type: "(checked: CheckedState) => void", description: "Called when the state changes." },
+  ]}
+/>
