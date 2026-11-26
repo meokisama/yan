@@ -6,7 +6,7 @@
  *
  *   REGISTRY_URL=http://localhost:3000 yarn registry:build
  */
-import { writeFileSync } from "node:fs"
+import { mkdirSync, writeFileSync } from "node:fs"
 import { join } from "node:path"
 
 import { registryItems } from "../registry/index.ts"
@@ -57,6 +57,8 @@ ${decls(yanTheme.theme)}
 
 ${toCss(yanTheme.css)}
 `
+// styles/ holds only this gitignored file, so a fresh clone does not have it.
+mkdirSync(join(root, "styles"), { recursive: true })
 writeFileSync(join(root, "styles/yan-theme.css"), css)
 
 console.log(`✿ registry.json (${registryItems.length} items, base ${base}) + styles/yan-theme.css`)
