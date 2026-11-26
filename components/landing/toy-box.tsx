@@ -243,8 +243,12 @@ function Flavours() {
     <Tabs defaultValue="sweet" className="w-full max-w-xs items-center">
       <TabsList>
         <TabsTrigger value="sweet">Sweet</TabsTrigger>
-        <TabsTrigger value="sour">Sour</TabsTrigger>
-        <TabsTrigger value="salty">Salty</TabsTrigger>
+        <TabsTrigger value="sour" color="lemon">
+          Sour
+        </TabsTrigger>
+        <TabsTrigger value="salty" color="sky">
+          Salty
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="sweet" className={panel}>
         Strawberry daifuku, melon pan and a very tall parfait.

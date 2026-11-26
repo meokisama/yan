@@ -89,20 +89,26 @@ function SelectTrigger({ className, children, ref, ...props }: React.ComponentPr
       }}
       data-slot="select-trigger"
       className={cn(
-        "group/select flex h-11 w-full cursor-pointer items-center justify-between gap-2 rounded-full border-2 border-input bg-card pr-3 pl-4 text-sm font-bold whitespace-nowrap outline-none",
-        "shadow-[inset_0_2px_4px_0_rgb(0_0_0/0.07)] transition-[border-color,box-shadow] duration-200",
-        "hover:border-primary focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-ring/35 data-[state=open]:border-primary",
-        "data-[placeholder]:font-medium data-[placeholder]:text-muted-foreground/70",
-        "disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-4 aria-invalid:ring-destructive/30",
-        "*:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 *:data-[slot=select-value]:truncate",
+        "group/select flex h-11 w-full cursor-pointer items-center justify-between gap-2 rounded-full border-2 border-primary bg-card pr-1.5 pl-4 text-sm font-extrabold whitespace-nowrap outline-none",
+        "[--edge:var(--yan-sakura-edge)] shadow-[0_4px_0_0_var(--edge)] transition-[translate,box-shadow] duration-150",
+        "hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_var(--edge)] focus-visible:ring-4 focus-visible:ring-ring/50",
+        "data-[state=open]:translate-y-[3px] data-[state=open]:shadow-[0_1px_0_0_var(--edge)]",
+        "data-[placeholder]:font-bold data-[placeholder]:text-muted-foreground/70",
+        "disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:[--edge:var(--yan-coral-edge)]",
+        "*:data-[slot=select-value]:flex *:data-[slot=select-value]:min-w-0 *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 *:data-[slot=select-value]:truncate",
         className
       )}
       {...props}
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <span className="grid size-6 shrink-0 place-items-center rounded-full bg-accent text-yan-sakura-edge transition-[rotate] duration-300 ease-[cubic-bezier(.34,1.7,.5,1)] group-data-[state=open]/select:rotate-180">
-          <svg viewBox="0 0 16 16" className="size-3.5" fill="none" aria-hidden="true">
+        <span className="yan-candy relative grid size-7 shrink-0 place-items-center rounded-full text-primary-foreground [--yan-depth:2px]">
+          <svg
+            viewBox="0 0 16 16"
+            className="size-3.5 transition-[rotate] duration-300 ease-[cubic-bezier(.34,1.7,.5,1)] group-data-[state=open]/select:rotate-180"
+            fill="none"
+            aria-hidden="true"
+          >
             <path d="M3.5 6 8 10.5 12.5 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
@@ -135,8 +141,9 @@ function SelectContent({
         position={position}
         sideOffset={sideOffset}
         className={cn(
-          "relative z-50 max-h-(--radix-select-content-available-height) min-w-32 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-3xl bg-popover text-popover-foreground",
-          "shadow-[inset_0_0_0_2px_var(--primary),0_6px_0_0_var(--yan-sakura-edge),0_24px_40px_-16px_var(--yan-sakura-edge)]",
+          "relative z-50 max-h-(--radix-select-content-available-height) min-w-32 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-3xl border-2 border-primary bg-popover text-popover-foreground",
+          "shadow-[0_6px_0_0_var(--yan-sakura-edge),0_24px_40px_-16px_var(--yan-sakura-edge)]",
+          position === "popper" && "min-w-(--radix-select-trigger-width)",
           intensity === "kawaii" &&
             "data-[state=open]:animate-[yan-pop-in_0.32s_cubic-bezier(.34,1.56,.5,1)] data-[state=closed]:animate-[yan-pop-out_0.12s_ease-in] motion-reduce:animate-none",
           intensity === "subtle" &&
@@ -145,14 +152,8 @@ function SelectContent({
         )}
         {...props}
       >
-        <SelectPrimitive.Viewport
-          className={cn(
-            "p-1.5",
-            position === "popper" && "w-full min-w-(--radix-select-trigger-width) scroll-my-1"
-          )}
-        >
-          {children}
-        </SelectPrimitive.Viewport>
+        {/* No padding: an option's highlight runs edge to edge and the menu's corners clip it. */}
+        <SelectPrimitive.Viewport className="w-full">{children}</SelectPrimitive.Viewport>
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
   )
@@ -162,7 +163,7 @@ function SelectLabel({ className, ...props }: React.ComponentProps<typeof Select
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
-      className={cn("px-4 pt-2 pb-1 text-[11px] font-extrabold tracking-widest text-muted-foreground uppercase", className)}
+      className={cn("px-5 pt-3 pb-1 text-[11px] font-extrabold tracking-widest text-muted-foreground uppercase", className)}
       {...props}
     />
   )
@@ -186,9 +187,10 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full cursor-pointer items-center gap-2 rounded-full py-2 pr-9 pl-4 text-sm font-bold outline-none select-none",
-        "transition-colors data-[highlighted]:bg-accent data-[state=checked]:text-yan-sakura-edge data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-        "[&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "relative flex w-full cursor-pointer items-center gap-2 py-2.5 pr-11 pl-5 text-sm font-bold outline-none select-none",
+        "data-[highlighted]:bg-accent data-[state=checked]:font-extrabold data-[state=checked]:text-yan-sakura-edge dark:data-[state=checked]:text-primary",
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        fx?.intensity === "off" ? "transition-colors" : "transition-[background-color,padding] duration-150 data-[highlighted]:pl-6.5",
         className
       )}
       onPointerUp={(e) => {
@@ -202,7 +204,7 @@ function SelectItem({
       {...props}
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-      <span className="absolute right-3 grid size-4 place-items-center">
+      <span className="absolute right-5 grid size-4 place-items-center">
         <SelectPrimitive.ItemIndicator>
           <svg viewBox="0 0 16 16" className="size-3.5 animate-[yan-pop_0.4s_ease-out] motion-reduce:animate-none" aria-hidden="true">
             <path
@@ -220,7 +222,7 @@ function SelectSeparator({ className, ...props }: React.ComponentProps<typeof Se
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("mx-3 my-1.5 border-t-2 border-dashed", className)}
+      className={cn("border-t-2 border-dashed", className)}
       {...props}
     />
   )

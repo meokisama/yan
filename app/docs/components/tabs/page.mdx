@@ -6,7 +6,8 @@ export const metadata = {
 # Tabs
 
 A tray of tabs with one gummy candy living in it. Pick a tab and the candy
-stretches toward it like pulled mochi, snaps over and lands in a puff.
+stretches toward it like pulled mochi, snaps over and lands in a puff. Give a
+tab a `color` and the candy changes flavour when it gets there.
 
 <ComponentPreview name="tabs-demo" />
 
@@ -24,7 +25,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 <Tabs defaultValue="sweet">
   <TabsList>
     <TabsTrigger value="sweet">Sweet</TabsTrigger>
-    <TabsTrigger value="sour">Sour</TabsTrigger>
+    <TabsTrigger value="sour" color="lemon">Sour</TabsTrigger>
   </TabsList>
   <TabsContent value="sweet">Strawberry daifuku.</TabsContent>
   <TabsContent value="sour">Lemon drops.</TabsContent>
@@ -42,6 +43,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 <PropsTable
   rows={[
     { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on TabsList. kawaii: mochi stretch and a landing puff. subtle: the candy slides. off: it jumps." },
+    { name: "color", type: "\"sakura\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\"", default: "\"sakura\"", description: "Set on TabsTrigger. The candy's colour while that tab is active." },
     { name: "value / defaultValue", type: "string", description: "Set on Tabs. The active tab." },
     { name: "onValueChange", type: "(value: string) => void", description: "Set on Tabs. Called when the active tab changes." },
     { name: "orientation", type: "\"horizontal\" | \"vertical\"", default: "\"horizontal\"", description: "Set on Tabs. Changes which arrow keys move focus." },
