@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@/components/u
 export default function AvatarDemo() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-6">
-      <Avatar size="lg">
+      <Avatar size="lg" emote="♪">
         <AvatarImage src="/mochi-avatar.svg" alt="Mochi-chan" />
         <AvatarFallback>MC</AvatarFallback>
       </Avatar>

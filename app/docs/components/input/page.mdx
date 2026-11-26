@@ -5,8 +5,8 @@ export const metadata = {
 
 # Input
 
-A pill-shaped text field that looks pressed into the page. It lights up with a
-candy ring on focus and, in kawaii mode, pops a few sparkles from its corner.
+A pill-shaped text field that looks pressed into the page. In kawaii mode every
+keystroke kicks a sparkle up from the caret, and deleting leaves a little puff.
 
 <ComponentPreview name="input-demo" />
 
@@ -34,14 +34,14 @@ Mark a field invalid with `aria-invalid` and it turns coral:
 
 - It renders a native `<input>`, so every input type, autofill and form validation work as usual.
 - Always pair it with a `<label>` (or `aria-label`); the placeholder is not a label.
-- The focus sparkles are decorative and skipped with `prefers-reduced-motion: reduce`.
+- The keystroke sparkles are decorative, throttled, and skipped with `prefers-reduced-motion: reduce`.
 
 ## API
 
 <PropsTable
   rows={[
-    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii pops sparkles on focus. subtle and off keep only the focus ring." },
-    { name: "fx", type: "BurstOptions", description: "Overrides for the focus burst." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii: sparkles off the caret as you type, a puff when you delete. subtle and off keep only the focus ring." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the per-keystroke burst." },
     { name: "...props", type: "React.ComponentProps<\"input\">", description: "Everything a native input accepts." },
   ]}
 />

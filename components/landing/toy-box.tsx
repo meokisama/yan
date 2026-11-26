@@ -298,14 +298,14 @@ function Friends() {
   return (
     <div className="flex flex-col items-center gap-4">
       <AvatarGroup>
-        <Avatar size="lg">
+        <Avatar size="lg" emote="♪">
           <AvatarImage src="/mochi-avatar.svg" alt="Mochi-chan" />
           <AvatarFallback>MC</AvatarFallback>
         </Avatar>
-        <Avatar size="lg" variant="lavender">
+        <Avatar size="lg" variant="lavender" emote="♡">
           <AvatarFallback>YU</AvatarFallback>
         </Avatar>
-        <Avatar size="lg" variant="mint">
+        <Avatar size="lg" variant="mint" emote="！">
           <AvatarFallback>MI</AvatarFallback>
         </Avatar>
         <Avatar size="lg" variant="lemon">

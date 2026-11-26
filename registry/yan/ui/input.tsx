@@ -3,17 +3,51 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-import { burst, type BurstOptions, type YanIntensity } from "@/lib/yan-fx"
+import { burst, puff, type BurstOptions, type YanIntensity } from "@/lib/yan-fx"
 
 type InputProps = React.ComponentProps<"input"> & {
-  /** How much moe: `"kawaii"` pops a few sparkles when the field takes focus. */
+  /**
+   * How much moe. `"kawaii"`: every keystroke kicks a sparkle up from the
+   * caret, and deleting leaves a little puff. `"subtle"` and `"off"` keep
+   * only the focus ring.
+   */
   intensity?: YanIntensity
-  /** Fine-tune the focus burst. */
+  /** Fine-tune the per-keystroke burst. */
   fx?: BurstOptions
 }
 
-/** A pill-shaped field pressed into the page, with a candy ring on focus. */
-function Input({ className, type, intensity = "kawaii", fx, onFocus, ...props }: InputProps) {
+let ruler: CanvasRenderingContext2D | null = null
+
+/** Viewport position of the text caret, measured with a canvas ruler. */
+function caretPoint(el: HTMLInputElement) {
+  const rect = el.getBoundingClientRect()
+  const cs = getComputedStyle(el)
+  const padLeft = parseFloat(cs.paddingLeft) + parseFloat(cs.borderLeftWidth)
+  const padRight = parseFloat(cs.paddingRight) + parseFloat(cs.borderRightWidth)
+  let index = el.value.length
+  try {
+    index = el.selectionStart ?? index
+  } catch {
+    // email / number inputs do not expose a selection: fall back to the end
+  }
+  const text = el.type === "password" ? "•".repeat(index) : el.value.slice(0, index)
+  ruler ??= document.createElement("canvas").getContext("2d")
+  let width = 0
+  if (ruler) {
+    ruler.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`
+    width = ruler.measureText(text).width
+  }
+  const x = rect.left + padLeft + width - el.scrollLeft
+  return {
+    x: Math.max(rect.left + padLeft, Math.min(rect.right - padRight, x)),
+    y: rect.top + rect.height / 2 - parseFloat(cs.fontSize) * 0.55,
+  }
+}
+
+/** A pill-shaped field pressed into the page. Typing in it throws sparkles off the caret. */
+function Input({ className, type, intensity = "kawaii", fx, onInput, ...props }: InputProps) {
+  const last = React.useRef(0)
+
   return (
     <input
       type={type}
@@ -28,14 +62,26 @@ function Input({ className, type, intensity = "kawaii", fx, onFocus, ...props }:
         "disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-4 aria-invalid:ring-destructive/30",
         className
       )}
-      onFocus={(e) => {
-        onFocus?.(e)
+      onInput={(e) => {
+        onInput?.(e)
         if (intensity !== "kawaii") return
-        const r = e.currentTarget.getBoundingClientRect()
-        burst(
-          { x: r.right - 18, y: r.top + 2 },
-          { shapes: ["sparkle", "dot"], count: 5, power: 0.4, size: 7, spread: Math.PI, ...fx }
-        )
+        const now = performance.now()
+        if (now - last.current < 45) return
+        last.current = now
+        const point = caretPoint(e.currentTarget)
+        const deleting = (e.nativeEvent as InputEvent).inputType?.startsWith("delete")
+        if (deleting) puff(point, { count: 1, size: 6, power: 0.35, color: "--yan-fx-2" })
+        else
+          burst(point, {
+            shapes: ["sparkle", "heart", "dot"],
+            count: 2,
+            power: 0.38,
+            size: 7,
+            angle: -Math.PI / 2,
+            spread: 1.3,
+            gravity: 300,
+            ...fx,
+          })
       }}
       {...props}
     />

@@ -4,16 +4,19 @@ import * as React from "react"
 import { Checkbox as CheckboxPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { burst, type BurstOptions, type YanIntensity } from "@/lib/yan-fx"
+import { bloom, burst, type BurstOptions, type YanIntensity } from "@/lib/yan-fx"
 
 type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root> & {
-  /** How much moe: `"kawaii"` pops and bursts, `"subtle"` a few sparkles, `"off"` neither. */
+  /**
+   * How much moe. `"kawaii"`: the box pops and a sakura blooms around it, then
+   * lets its petals drift away. `"subtle"`: a few sparkles. `"off"`: neither.
+   */
   intensity?: YanIntensity
-  /** Fine-tune the burst fired when the box is checked. */
+  /** Fine-tune the sparkles fired when the box is checked (subtle mode). */
   fx?: BurstOptions
 }
 
-/** A gummy checkbox. The tick draws itself and the box pops like a pressed candy. */
+/** A gummy checkbox. Tick it and a sakura blooms around it. */
 function Checkbox({ className, intensity = "kawaii", fx, onCheckedChange, ...props }: CheckboxProps) {
   const ref = React.useRef<HTMLButtonElement>(null)
 
@@ -24,7 +27,7 @@ function Checkbox({ className, intensity = "kawaii", fx, onCheckedChange, ...pro
       data-intensity={intensity}
       className={cn(
         "peer group/checkbox relative grid size-6 shrink-0 cursor-pointer place-items-center rounded-[0.6rem] outline-none",
-        "border-2 border-input bg-card shadow-[inset_0_2px_3px_0_oklch(0_0_0/0.07)] transition-[border-color,background-color,box-shadow] duration-200",
+        "border-2 border-input bg-card shadow-[inset_0_2px_3px_0_rgb(0_0_0/0.07)] transition-[border-color,background-color,box-shadow] duration-200",
         "hover:border-primary focus-visible:ring-4 focus-visible:ring-ring/50",
         "data-[state=checked]:yan-candy data-[state=checked]:border-transparent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
         "[--yan-c:var(--primary)] [--yan-depth:3px] [--yan-edge:var(--yan-sakura-edge)]",
@@ -34,15 +37,13 @@ function Checkbox({ className, intensity = "kawaii", fx, onCheckedChange, ...pro
       )}
       onCheckedChange={(checked) => {
         onCheckedChange?.(checked)
-        if (checked !== true || intensity === "off" || !ref.current) return
-        const kawaii = intensity === "kawaii"
-        burst(ref.current, {
-          shapes: kawaii ? ["star", "sparkle", "dot"] : ["sparkle"],
-          count: kawaii ? 9 : 4,
-          power: kawaii ? 0.6 : 0.4,
-          size: kawaii ? 8 : 6,
-          ...fx,
-        })
+        const el = ref.current
+        if (checked !== true || intensity === "off" || !el) return
+        if (intensity === "subtle") {
+          burst(el, { shapes: ["sparkle"], count: 4, power: 0.4, size: 6, ...fx })
+          return
+        }
+        bloom(el)
       }}
       {...props}
     >

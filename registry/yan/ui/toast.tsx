@@ -4,7 +4,7 @@ import * as React from "react"
 import { Toast as ToastPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { burst, type YanIntensity } from "@/lib/yan-fx"
+import { burst, puff, type YanIntensity } from "@/lib/yan-fx"
 
 type ToastVariant = "default" | "success" | "error"
 
@@ -56,22 +56,48 @@ function remove(id: number) {
   emit()
 }
 
-const looks: Record<ToastVariant, { tint: string; mark: string; sfx: string; colors: string[] }> = {
+const INK = "oklch(0.3 0.08 335)"
+
+/** The candy mark is a tiny face that reacts to the news. */
+const faces: Record<ToastVariant, React.ReactNode> = {
+  // content: round eyes, ω mouth
+  default: (
+    <>
+      <ellipse cx="8.2" cy="10.6" rx="1.5" ry="2" fill={INK} />
+      <ellipse cx="15.8" cy="10.6" rx="1.5" ry="2" fill={INK} />
+      <path d="M10 14.2 q1 1.5 2 0 q1 1.5 2 0" fill="none" stroke={INK} strokeWidth="1.3" strokeLinecap="round" />
+    </>
+  ),
+  // delighted: ^ ^ eyes, open smile
+  success: (
+    <>
+      <path d="M6 11.6 q2.2 -3 4.4 0 M13.6 11.6 q2.2 -3 4.4 0" fill="none" stroke={INK} strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M9.6 13.8 q2.4 3.4 4.8 0 Z" fill={INK} />
+    </>
+  ),
+  // flustered: > < eyes, wobbly mouth, sweat drop
+  error: (
+    <>
+      <path d="M6.2 9 l3.4 2 l-3.4 2 M17.8 9 l-3.4 2 l3.4 2" fill="none" stroke={INK} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.4 15.6 q1.3 -1.6 2.6 0 q1.3 1.6 2.6 0" fill="none" stroke={INK} strokeWidth="1.3" strokeLinecap="round" />
+      <path d="M20 3.6 q2.2 3.2 0 4.4 q-2.2 -1.2 0 -4.4 Z" fill="#8fd0ff" stroke="#fff" strokeWidth="0.6" />
+    </>
+  ),
+}
+
+const looks: Record<ToastVariant, { tint: string; sfx: string; colors: string[] }> = {
   default: {
     tint: "[--yan-c:var(--yan-sakura)] [--yan-edge:var(--yan-sakura-edge)]",
-    mark: "♡",
     sfx: "ぽんっ",
     colors: ["--yan-fx-1", "--yan-fx-2", "--yan-fx-4"],
   },
   success: {
     tint: "[--yan-c:var(--yan-mint)] [--yan-edge:var(--yan-mint-edge)]",
-    mark: "✓",
     sfx: "やった！",
     colors: ["--yan-fx-3", "--yan-fx-4", "--yan-fx-5"],
   },
   error: {
     tint: "[--yan-c:var(--destructive)] [--yan-edge:var(--yan-coral-edge)]",
-    mark: "!",
     sfx: "あわわ",
     colors: ["--yan-fx-1", "--yan-fx-4"],
   },
@@ -79,14 +105,20 @@ const looks: Record<ToastVariant, { tint: string; mark: string; sfx: string; col
 
 function ToastCard({ item, intensity }: { item: ToastItem; intensity: YanIntensity }) {
   const mark = React.useRef<HTMLSpanElement>(null)
+  const card = React.useRef<HTMLLIElement>(null)
   const look = looks[item.variant ?? "default"]
   const { sfx } = item
 
   React.useEffect(() => {
     if (intensity === "off") return
     const kawaii = intensity === "kawaii"
-    // Wait for the slide-in, then pop from the candy mark.
+    // Wait for the smear to hit its stop, then: dust under the card, a pop from the face.
     const t = setTimeout(() => {
+      if (kawaii && card.current) {
+        const r = card.current.getBoundingClientRect()
+        puff({ x: r.left + 10, y: r.bottom }, { count: 2, size: 9, angle: -Math.PI * 0.85, spread: 0.7, color: look.colors[0] })
+        puff({ x: r.right - 10, y: r.bottom }, { count: 2, size: 9, angle: -Math.PI * 0.15, spread: 0.7, color: look.colors[0] })
+      }
       if (mark.current)
         burst(mark.current, {
           shapes: kawaii ? ["sparkle", "heart", "star"] : ["sparkle"],
@@ -95,13 +127,15 @@ function ToastCard({ item, intensity }: { item: ToastItem; intensity: YanIntensi
           power: kawaii ? 0.7 : 0.4,
           size: kawaii ? 9 : 6,
           word: kawaii && sfx !== false ? (sfx ?? look.sfx) : null,
+          wordStyle: "slam",
         })
-    }, 260)
+    }, 230)
     return () => clearTimeout(t)
   }, [intensity, look, sfx])
 
   return (
     <ToastPrimitive.Root
+      ref={card}
       data-slot="toast"
       data-variant={item.variant ?? "default"}
       open={item.open}
@@ -116,7 +150,7 @@ function ToastCard({ item, intensity }: { item: ToastItem; intensity: YanIntensi
         "shadow-[inset_0_2px_0_0_rgb(255_255_255/0.5),inset_0_0_0_2px_var(--yan-c),0_6px_0_0_var(--yan-edge),0_22px_36px_-16px_var(--yan-edge)]",
         "data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[translate] data-[swipe=move]:translate-x-(--radix-toast-swipe-move-x)",
         "data-[state=closed]:animate-[yan-fade-out_0.18s_ease-in] data-[swipe=end]:animate-[yan-toast-out_0.18s_ease-in]",
-        intensity === "kawaii" && "data-[state=open]:animate-[yan-toast-in_0.5s_cubic-bezier(.34,1.56,.5,1)]",
+        intensity === "kawaii" && "origin-right data-[state=open]:animate-[yan-toast-in_0.48s_ease-out]",
         intensity === "subtle" && "data-[state=open]:animate-[yan-fade-in_0.2s_ease-out]",
         "motion-reduce:animate-none",
         look.tint
@@ -125,9 +159,13 @@ function ToastCard({ item, intensity }: { item: ToastItem; intensity: YanIntensi
       <span
         ref={mark}
         aria-hidden="true"
-        className="yan-candy relative grid size-9 shrink-0 place-items-center rounded-full text-base font-black text-[oklch(0.3_0.08_335)] [--yan-depth:3px]"
+        className="yan-candy relative grid size-10 shrink-0 place-items-center rounded-full [--yan-depth:3px]"
       >
-        {look.mark}
+        <svg viewBox="0 0 24 24" className="size-7 overflow-visible">
+          <ellipse cx="4.6" cy="14.4" rx="2.3" ry="1.4" fill="#fff" opacity="0.55" />
+          <ellipse cx="19.4" cy="14.4" rx="2.3" ry="1.4" fill="#fff" opacity="0.55" />
+          {faces[item.variant ?? "default"]}
+        </svg>
       </span>
       <div className="min-w-0 flex-1 pt-0.5">
         <ToastPrimitive.Title data-slot="toast-title" className="text-sm font-black">

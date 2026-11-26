@@ -5,8 +5,8 @@ export const metadata = {
 
 # Select
 
-A pill-shaped trigger with a puffy menu that pops out underneath. The chosen
-option gets a little heart.
+A pill-shaped trigger with a puffy menu that pops out underneath. Pick an
+option and a heart flies from it back to the trigger, which wobbles as it lands.
 
 <ComponentPreview name="select-demo" />
 
@@ -44,13 +44,13 @@ Group options with `SelectGroup`, `SelectLabel` and `SelectSeparator`, as in the
 
 - Built on Radix Select: arrow keys, typeahead, Home/End and Escape all work, and focus returns to the trigger.
 - Give the trigger an `aria-label` when there is no visible label.
-- With `prefers-reduced-motion: reduce`, the menu appears without the bounce.
+- With `prefers-reduced-motion: reduce`, the menu appears without the bounce and no heart flies.
 
 ## API
 
 <PropsTable
   rows={[
-    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on SelectContent: bounce in, fade in, or just appear." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on Select. kawaii: the menu pops and a heart flies back to the trigger. subtle: the menu fades. off: it just appears." },
     { name: "position", type: "\"popper\" | \"item-aligned\"", default: "\"popper\"", description: "Set on SelectContent. How the menu is placed relative to the trigger." },
     { name: "value / defaultValue", type: "string", description: "Set on Select. Controlled and uncontrolled value." },
     { name: "onValueChange", type: "(value: string) => void", description: "Set on Select. Called when an option is chosen." },

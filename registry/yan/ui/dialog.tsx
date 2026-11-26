@@ -4,7 +4,7 @@ import * as React from "react"
 import { Dialog as DialogPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { burst, type BurstOptions, type YanIntensity } from "@/lib/yan-fx"
+import { burst, puff, speedLines, type BurstOptions, type YanIntensity } from "@/lib/yan-fx"
 
 function Dialog(props: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />
@@ -33,7 +33,11 @@ function DialogOverlay({ className, ...props }: React.ComponentProps<typeof Dial
 }
 
 type DialogContentProps = React.ComponentProps<typeof DialogPrimitive.Content> & {
-  /** How much moe: `"kawaii"` bounces in with sparkles, `"subtle"` fades, `"off"` just appears. */
+  /**
+   * How much moe. `"kawaii"`: the card drops in, squashes as it lands, kicks
+   * dust out of both bottom corners and throws stars off the top. `"subtle"`
+   * fades. `"off"` just appears.
+   */
   intensity?: YanIntensity
   /** Fine-tune the burst fired when the dialog opens (kawaii only). */
   fx?: BurstOptions
@@ -61,7 +65,7 @@ function DialogContent({
           "fixed top-1/2 left-1/2 z-50 grid w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 gap-4 rounded-[2rem] bg-card p-7 text-card-foreground outline-none",
           "shadow-[inset_0_2px_0_0_rgb(255_255_255/0.5),inset_0_0_0_2px_var(--primary),0_8px_0_0_var(--yan-sakura-edge),0_30px_60px_-20px_var(--yan-sakura-edge)]",
           intensity === "kawaii" &&
-            "data-[state=open]:animate-[yan-pop-in_0.45s_cubic-bezier(.34,1.56,.5,1)] data-[state=closed]:animate-[yan-pop-out_0.15s_ease-in] motion-reduce:animate-none",
+            "data-[state=open]:animate-[yan-drop-in_0.5s_ease-out] data-[state=closed]:animate-[yan-pop-out_0.15s_ease-in] motion-reduce:animate-none",
           intensity === "subtle" &&
             "data-[state=open]:animate-[yan-fade-in_0.2s_ease-out] data-[state=closed]:animate-[yan-fade-out_0.15s_ease-in] motion-reduce:animate-none",
           className
@@ -70,15 +74,18 @@ function DialogContent({
           onOpenAutoFocus?.(e)
           const el = e.currentTarget
           if (intensity !== "kawaii" || !(el instanceof HTMLElement)) return
-          // Let the card land first, then pop from its top edge.
+          // 45% into yan-drop-in is the frame where the card hits the floor.
           setTimeout(() => {
             if (!el.isConnected) return
             const r = el.getBoundingClientRect()
+            speedLines(el, { reach: 34 })
+            puff({ x: r.left + 14, y: r.bottom }, { count: 3, size: 13, angle: -Math.PI * 0.88, spread: 0.6 })
+            puff({ x: r.right - 14, y: r.bottom }, { count: 3, size: 13, angle: -Math.PI * 0.12, spread: 0.6 })
             burst(
               { x: r.left + r.width / 2, y: r.top },
-              { shapes: ["sparkle", "star", "heart"], count: 16, power: 0.9, size: 10, spread: Math.PI * 1.2, ...fx }
+              { shapes: ["star", "sparkle", "heart"], count: 12, power: 0.85, size: 10, spread: Math.PI * 1.1, ...fx }
             )
-          }, 220)
+          }, 225)
         }}
         {...props}
       >

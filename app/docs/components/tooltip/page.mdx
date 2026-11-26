@@ -5,7 +5,8 @@ export const metadata = {
 
 # Tooltip
 
-A little speech bubble that pops out of whatever it describes, with a bounce.
+A little speech bubble that pops out of whatever it describes, with a bounce,
+two tiny puffs and a glint.
 
 <ComponentPreview name="tooltip-demo" />
 
@@ -33,13 +34,13 @@ wrap them in `TooltipProvider` yourself.
 
 - Built on Radix Tooltip: it opens on hover and on keyboard focus, and closes with Escape.
 - A tooltip is a hint, not a label. Icon-only buttons still need `aria-label`.
-- With `prefers-reduced-motion: reduce`, the bubble appears without the bounce.
+- With `prefers-reduced-motion: reduce`, the bubble appears without the bounce or the puffs.
 
 ## API
 
 <PropsTable
   rows={[
-    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on TooltipContent: bounce in, fade in, or just appear." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on TooltipContent. kawaii: bounce, puffs and a glint. subtle: fade in. off: just appear." },
     { name: "side", type: "\"top\" | \"right\" | \"bottom\" | \"left\"", default: "\"top\"", description: "Set on TooltipContent. Preferred side." },
     { name: "sideOffset", type: "number", default: "8", description: "Set on TooltipContent. Gap between trigger and bubble, in px." },
     { name: "delayDuration", type: "number", default: "150", description: "Set on Tooltip or TooltipProvider. Hover delay in ms." },

@@ -5,8 +5,8 @@ export const metadata = {
 
 # Dialog
 
-A puffy modal card. It bounces onto the page over a blurred backdrop and, in
-kawaii mode, throws a few sparkles from its top edge.
+A puffy modal card. In kawaii mode it drops in from above, squashes as it
+lands, kicks dust out of both bottom corners and throws stars off the top.
 
 <ComponentPreview name="dialog-demo" />
 
@@ -45,13 +45,13 @@ Use `DialogFooter` for actions and wrap any button in `DialogClose asChild` to m
 
 - Built on Radix Dialog: focus is trapped inside, Escape and a backdrop click close it, and focus returns to the trigger.
 - Always include a `DialogTitle`; add a `DialogDescription` when the title alone is not enough.
-- With `prefers-reduced-motion: reduce`, the bounce and the sparkles are skipped.
+- With `prefers-reduced-motion: reduce`, the drop, the dust and the stars are skipped.
 
 ## API
 
 <PropsTable
   rows={[
-    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on DialogContent: bounce in with sparkles, fade in, or just appear." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on DialogContent. kawaii: drop, squash, dust and stars. subtle: fade in. off: just appear." },
     { name: "fx", type: "BurstOptions", description: "Set on DialogContent. Overrides for the opening burst." },
     { name: "hideClose", type: "boolean", default: "false", description: "Set on DialogContent. Hide the round close button in the corner." },
     { name: "open / defaultOpen", type: "boolean", description: "Set on Dialog. Controlled and uncontrolled state." },

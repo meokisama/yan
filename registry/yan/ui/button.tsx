@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import {
   burstFromEvent,
   fxPresets,
+  impact,
   pickWord,
   prefersReducedMotion,
   type BurstOptions,
@@ -63,8 +64,9 @@ type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
     /**
-     * How much moe. `"kawaii"` squishes like mochi, pops sparkles + hearts and
-     * an onomatopoeia sticker; `"subtle"` keeps a small bounce and a few
+     * How much moe. `"kawaii"` squishes like mochi, then lands with a soft
+     * glow, emphasis lines, rolling clouds, sparkles and a slammed-in
+     * onomatopoeia sticker; `"subtle"` keeps a small bounce and a few
      * sparkles; `"off"` behaves like a plain button.
      */
     intensity?: YanIntensity
@@ -156,12 +158,11 @@ function Button({
         const preset = fxPresets[intensity]
         const word =
           intensity === "kawaii" && sfx !== false ? (sfx ?? pickWord()) : null
-        burstFromEvent(e, {
-          ...preset,
-          colors: variantColors[variant ?? "default"],
-          word,
-          ...fx,
-        })
+        const colors = variantColors[variant ?? "default"]
+        burstFromEvent(e, { ...preset, colors, word, ...fx })
+        // Kawaii candy buttons get the full beat: a soft glow, emphasis
+        // lines and clouds rolling off both ends.
+        if (intensity === "kawaii" && squishes) impact(e.currentTarget, { color: colors?.[0] })
       }}
       {...props}
     />

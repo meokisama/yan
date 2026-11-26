@@ -67,5 +67,21 @@ burst(document.querySelector("#save")!, { shapes: ["petal"], count: 20 })
   ]}
 />
 
-> Shapes: `sparkle`, `heart`, `star`, `petal`, `bubble`, `dot`. Colors accept any CSS
+`burst()` is only one word in the vocabulary. The rest are small, authored
+effects that components combine into a beat:
+
+```tsx
+import { bloom, emote, fly, impact, puff, speedLines } from "@/lib/yan-fx"
+
+impact(button)                 // soft glow + emphasis lines + clouds off both ends
+puff(el, { count: 3 })         // "pofu" clouds, animated on twos
+speedLines(el)                 // manga emphasis lines around an element
+bloom(checkbox)                // a sakura unfolds around it, then lets its petals go
+emote(el, "！")                // an emotion mark popping off a corner
+fly(option, trigger)           // a heart that arcs from one element to another
+```
+
+Every one of them is a no-op under `prefers-reduced-motion: reduce`.
+
+> Shapes: `sparkle`, `heart`, `star`, `petal`, `bubble`, `dot`, `puff`. Colors accept any CSS
 > color or a custom property name such as `"--yan-fx-3"`.

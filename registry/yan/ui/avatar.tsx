@@ -5,6 +5,7 @@ import { Avatar as AvatarPrimitive } from "radix-ui"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { emote as popEmote } from "@/lib/yan-fx"
 
 const avatarVariants = cva(
   [
@@ -31,12 +32,24 @@ const avatarVariants = cva(
   }
 )
 
-type AvatarProps = React.ComponentProps<typeof AvatarPrimitive.Root> & VariantProps<typeof avatarVariants>
+type AvatarProps = React.ComponentProps<typeof AvatarPrimitive.Root> &
+  VariantProps<typeof avatarVariants> & {
+    /** A manga emotion mark ("♪", "♡", "！") that pops off the avatar when the pointer arrives. */
+    emote?: string
+  }
 
 /** A sticker-style avatar: white die-cut ring, candy edge underneath. */
-function Avatar({ className, variant, size, ...props }: AvatarProps) {
+function Avatar({ className, variant, size, emote, onPointerEnter, ...props }: AvatarProps) {
   return (
-    <AvatarPrimitive.Root data-slot="avatar" className={cn(avatarVariants({ variant, size }), className)} {...props} />
+    <AvatarPrimitive.Root
+      data-slot="avatar"
+      className={cn(avatarVariants({ variant, size }), className)}
+      onPointerEnter={(e) => {
+        onPointerEnter?.(e)
+        if (emote && e.pointerType !== "touch") popEmote(e.currentTarget, emote)
+      }}
+      {...props}
+    />
   )
 }
 

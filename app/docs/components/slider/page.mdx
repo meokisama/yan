@@ -5,8 +5,9 @@ export const metadata = {
 
 # Slider
 
-A candy-filled slider. The heart thumb grows when you grab it and leaves a trail
-of sparkles as it moves.
+A candy-filled slider. The heart thumb stretches into a teardrop the faster
+you drag, like pulled mochi, and sheds hearts behind it. Let go and it snaps
+back with a ぴたっ.
 
 <ComponentPreview name="slider-demo" />
 
@@ -34,13 +35,13 @@ Pass two values for a range:
 
 - Built on Radix Slider: arrow keys, Page Up/Down, Home and End all work, and each thumb is a `role="slider"`.
 - Give it an `aria-label` or `aria-labelledby`.
-- The sparkle trail is throttled and skipped entirely with `prefers-reduced-motion: reduce`.
+- The stretch and the trail follow drag speed, and are skipped entirely with `prefers-reduced-motion: reduce`.
 
 ## API
 
 <PropsTable
   rows={[
-    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii leaves a sparkle trail, subtle sparkles on release, off does neither." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii: speed stretch, heart trail and a ぴたっ on release. subtle: a light stretch and sparkles. off: neither." },
     { name: "fx", type: "BurstOptions", description: "Overrides for the burst fired when a drag ends." },
     { name: "value / defaultValue", type: "number[]", description: "One entry per thumb." },
     { name: "min / max / step", type: "number", default: "0 / 100 / 1", description: "Range and increment." },

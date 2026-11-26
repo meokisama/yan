@@ -6,7 +6,8 @@ export const metadata = {
 # Avatar
 
 A sticker-style avatar with a white die-cut ring and a candy edge. When there is
-no image, the fallback takes the avatar's flavour.
+no image, the fallback takes the avatar's flavour. Give it an `emote` and a
+manga emotion mark pops off it when the pointer arrives.
 
 <ComponentPreview name="avatar-demo" />
 
@@ -41,6 +42,7 @@ Wrap several in `AvatarGroup` to overlap them into a row; the one under the poin
   rows={[
     { name: "variant", type: "\"sakura\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\"", default: "\"sakura\"", description: "Flavour of the edge and the fallback." },
     { name: "size", type: "\"sm\" | \"default\" | \"lg\"", default: "\"default\"", description: "Diameter: 32, 44 or 64 px." },
+    { name: "emote", type: "string", description: "A mark such as ♪, ♡ or ！ that pops off the avatar on hover." },
     { name: "delayMs", type: "number", description: "Set on AvatarFallback. Wait before showing it, to avoid a flash on fast connections." },
   ]}
 />

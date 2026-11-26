@@ -166,9 +166,20 @@ const css: Record<string, Record<string, unknown>> = {
     from: { opacity: "0", translate: "0 8px" },
     to: { opacity: "1", translate: "0 0" },
   },
+  // Smear in from the side, overshoot, squash against the stop, settle.
   "@keyframes yan-toast-in": {
-    from: { opacity: "0", translate: "110% 0", scale: "0.9" },
-    to: { opacity: "1", translate: "0 0", scale: "1" },
+    "0%": { opacity: "0", translate: "120% 0", scale: "1.35 0.8" },
+    "45%": { opacity: "1", translate: "-3% 0", scale: "0.92 1.08" },
+    "70%": { translate: "1% 0", scale: "1.03 0.97" },
+    "100%": { opacity: "1", translate: "0 0", scale: "1 1" },
+  },
+  // Drop from above and squash on landing. Uses `transform` so it composes
+  // with the `translate` that centers a dialog.
+  "@keyframes yan-drop-in": {
+    "0%": { opacity: "0", transform: "translateY(-70px) scale(0.86, 1.14)" },
+    "45%": { opacity: "1", transform: "translateY(0) scale(1.07, 0.9)" },
+    "68%": { transform: "translateY(0) scale(0.97, 1.04)" },
+    "100%": { opacity: "1", transform: "none" },
   },
   "@keyframes yan-toast-out": {
     to: { opacity: "0", translate: "110% 0" },

@@ -4,10 +4,70 @@ import * as React from "react"
 import { Select as SelectPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import type { YanIntensity } from "@/lib/yan-fx"
+import { fly, prefersReducedMotion, type FxPoint, type YanIntensity } from "@/lib/yan-fx"
 
-function Select(props: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />
+type SelectFx = {
+  intensity: YanIntensity
+  setTrigger: (el: HTMLButtonElement | null) => void
+  /** Remember where the option the user just picked was on screen. */
+  setPicked: (point: FxPoint) => void
+}
+
+const SelectFxContext = React.createContext<SelectFx | null>(null)
+
+type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
+  /**
+   * How much moe. `"kawaii"`: the menu pops open, and the option you pick
+   * sends a heart flying back to the trigger, which wobbles as it lands.
+   * `"subtle"`: the menu fades. `"off"`: it just appears.
+   */
+  intensity?: YanIntensity
+}
+
+function Select({ intensity = "kawaii", onValueChange, ...props }: SelectProps) {
+  const trigger = React.useRef<HTMLButtonElement>(null)
+  const picked = React.useRef<FxPoint | null>(null)
+  const fx = React.useMemo<SelectFx>(
+    () => ({
+      intensity,
+      setTrigger: (el) => {
+        trigger.current = el
+      },
+      setPicked: (point) => {
+        picked.current = point
+      },
+    }),
+    [intensity]
+  )
+
+  return (
+    <SelectFxContext.Provider value={fx}>
+      <SelectPrimitive.Root
+        data-slot="select"
+        onValueChange={(value) => {
+          onValueChange?.(value)
+          const from = picked.current
+          const to = trigger.current
+          picked.current = null
+          if (intensity !== "kawaii" || !from || !to || prefersReducedMotion()) return
+          const r = to.getBoundingClientRect()
+          fly(from, { x: r.left + 22, y: r.top + r.height / 2 }, {
+            onArrive: () =>
+              to.animate(
+                [
+                  { scale: "1 1" },
+                  { scale: "1.06 0.88", offset: 0.25 },
+                  { scale: "0.97 1.07", offset: 0.55 },
+                  { scale: "1 1" },
+                ],
+                { duration: 420, easing: "ease-out" }
+              ),
+          })
+        }}
+        {...props}
+      />
+    </SelectFxContext.Provider>
+  )
 }
 
 function SelectGroup(props: React.ComponentProps<typeof SelectPrimitive.Group>) {
@@ -18,9 +78,15 @@ function SelectValue(props: React.ComponentProps<typeof SelectPrimitive.Value>) 
   return <SelectPrimitive.Value data-slot="select-value" {...props} />
 }
 
-function SelectTrigger({ className, children, ...props }: React.ComponentProps<typeof SelectPrimitive.Trigger>) {
+function SelectTrigger({ className, children, ref, ...props }: React.ComponentProps<typeof SelectPrimitive.Trigger>) {
+  const fx = React.useContext(SelectFxContext)
   return (
     <SelectPrimitive.Trigger
+      ref={(el) => {
+        fx?.setTrigger(el)
+        if (typeof ref === "function") ref(el)
+        else if (ref) ref.current = el
+      }}
       data-slot="select-trigger"
       className={cn(
         "group/select flex h-11 w-full cursor-pointer items-center justify-between gap-2 rounded-full border-2 border-input bg-card pr-3 pl-4 text-sm font-bold whitespace-nowrap outline-none",
@@ -46,7 +112,7 @@ function SelectTrigger({ className, children, ...props }: React.ComponentProps<t
 }
 
 type SelectContentProps = React.ComponentProps<typeof SelectPrimitive.Content> & {
-  /** How much moe: `"kawaii"` pops in with a bounce, `"subtle"` fades, `"off"` just appears. */
+  /** Overrides the `intensity` set on `Select` for this menu's entrance. */
   intensity?: YanIntensity
 }
 
@@ -56,9 +122,11 @@ function SelectContent({
   children,
   position = "popper",
   sideOffset = 8,
-  intensity = "kawaii",
+  intensity: own,
   ...props
 }: SelectContentProps) {
+  const fx = React.useContext(SelectFxContext)
+  const intensity = own ?? fx?.intensity ?? "kawaii"
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
@@ -100,7 +168,20 @@ function SelectLabel({ className, ...props }: React.ComponentProps<typeof Select
   )
 }
 
-function SelectItem({ className, children, ...props }: React.ComponentProps<typeof SelectPrimitive.Item>) {
+function SelectItem({
+  className,
+  children,
+  onPointerUp,
+  onKeyDown,
+  ...props
+}: React.ComponentProps<typeof SelectPrimitive.Item>) {
+  const fx = React.useContext(SelectFxContext)
+  // Remember where this option was: by the time the value changes, the menu is gone.
+  const mark = (el: HTMLElement) => {
+    const r = el.getBoundingClientRect()
+    fx?.setPicked({ x: r.right - 20, y: r.top + r.height / 2 })
+  }
+
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
@@ -110,6 +191,14 @@ function SelectItem({ className, children, ...props }: React.ComponentProps<type
         "[&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
+      onPointerUp={(e) => {
+        mark(e.currentTarget)
+        onPointerUp?.(e)
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") mark(e.currentTarget)
+        onKeyDown?.(e)
+      }}
       {...props}
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -147,4 +236,4 @@ export {
   SelectItem,
   SelectSeparator,
 }
-export type { SelectContentProps }
+export type { SelectProps, SelectContentProps }

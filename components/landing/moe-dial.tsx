@@ -36,7 +36,7 @@ const levels: {
     value: "kawaii",
     jp: "ぷにっ！",
     title: "Kawaii",
-    body: "Mochi squish, jelly wobble, hearts, stars and an onomatopoeia sticker on every press.",
+    body: "Soft glows, emphasis lines, rolling clouds, blooming sakura and onomatopoeia that slams in.",
     where: "landing pages · games · fan sites",
   },
 ]

@@ -5,8 +5,8 @@ export const metadata = {
 
 # Checkbox
 
-A gummy checkbox. The tick draws itself, the box pops like a pressed candy and a
-few stars fly out.
+A gummy checkbox. Tick it and a sakura blooms around the box: five petals
+unfold one after another, sway for a moment, then let go and drift down.
 
 <ComponentPreview name="checkbox-demo" />
 
@@ -37,14 +37,14 @@ Pair it with a label. The checkbox is a `peer`, so siblings can react to its sta
 
 - Built on Radix Checkbox: `role="checkbox"`, toggles with Space, supports the indeterminate state.
 - The tick is an inline SVG that inherits `currentColor`.
-- With `prefers-reduced-motion: reduce`, the pop and the burst are skipped.
+- With `prefers-reduced-motion: reduce`, the pop, the bloom and the sparkles are skipped.
 
 ## API
 
 <PropsTable
   rows={[
-    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "How much moe: pop and stars, a few sparkles, or neither." },
-    { name: "fx", type: "BurstOptions", description: "Overrides for the burst fired when the box is checked." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii: pop and a sakura bloom. subtle: a few sparkles. off: neither." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the sparkles fired in subtle mode." },
     { name: "checked / defaultChecked", type: "boolean | \"indeterminate\"", description: "Controlled and uncontrolled state, as in Radix." },
     { name: "onCheckedChange", type: "(checked: CheckedState) => void", description: "Called when the state changes." },
   ]}

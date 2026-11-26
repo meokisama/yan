@@ -5,8 +5,9 @@ export const metadata = {
 
 # Toast
 
-Toasts that bounce in from the corner with a candy mark, a few sparkles and an
-onomatopoeia sticker. Call `toast()` from anywhere.
+Toasts smear in from the corner, squash against their stop and land in a puff
+of dust. The candy mark is a tiny face that reacts to the news, and an
+onomatopoeia sticker slams in beside it. Call `toast()` from anywhere.
 
 <ComponentPreview name="toast-demo" />
 
@@ -37,16 +38,16 @@ toast.error("Oh no", { description: "The parfait fell over." })
 
 - Built on Radix Toast: toasts are announced by screen readers, pause on hover and focus, and can be swiped away.
 - Press F8 to move focus to the toast region.
-- With `prefers-reduced-motion: reduce`, toasts appear without the bounce, the sparkles or the sticker.
+- With `prefers-reduced-motion: reduce`, toasts appear without the smear, the dust or the sticker.
 
 ## API
 
 <PropsTable
   rows={[
-    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on Toaster: bounce in with a sticker, fade in with sparkles, or just appear." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on Toaster. kawaii: smear in, dust and a sticker. subtle: fade in with sparkles. off: just appear." },
     { name: "title", type: "ReactNode", description: "toast() option. The main line." },
     { name: "description", type: "ReactNode", description: "toast() option. A second, quieter line." },
-    { name: "variant", type: "\"default\" | \"success\" | \"error\"", default: "\"default\"", description: "toast() option. Sets the candy mark and colours." },
+    { name: "variant", type: "\"default\" | \"success\" | \"error\"", default: "\"default\"", description: "toast() option. Sets the face on the candy mark and the colours." },
     { name: "duration", type: "number", default: "4000", description: "toast() option. Milliseconds before it leaves by itself." },
     { name: "sfx", type: "string | false", default: "per variant", description: "toast() option. Sticker shown in kawaii mode. false hides it." },
   ]}

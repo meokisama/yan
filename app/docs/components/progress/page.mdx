@@ -5,8 +5,9 @@ export const metadata = {
 
 # Progress
 
-A candy-cane progress bar. The stripes scroll while it works, the fill overshoots
-a little as it grows, and it throws a small party when it reaches 100%.
+A candy-cane progress bar with a tiny mochi riding the front of it. Each step
+forward it rolls and kicks up clouds. At 100% it jumps for joy in a ring of
+emphasis lines.
 
 <ComponentPreview name="progress-demo" />
 
@@ -28,13 +29,13 @@ import { Progress } from "@/components/ui/progress"
 
 - Built on Radix Progress: `role="progressbar"` with `aria-valuenow` kept in sync.
 - Give it an `aria-label` describing what is loading.
-- With `prefers-reduced-motion: reduce`, the stripes stop, the width changes instantly and the party is skipped.
+- The rider is decorative and `aria-hidden`. With `prefers-reduced-motion: reduce`, the stripes stop, the width changes instantly and the rolling, clouds and party are skipped.
 
 ## API
 
 <PropsTable
   rows={[
-    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii animates the stripes and celebrates at 100%; subtle only sparkles; off is still." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii: the rider rolls, kicks up clouds and jumps at 100%. subtle: it rides quietly and sparkles at 100%. off: a plain bar." },
     { name: "value", type: "number", default: "0", description: "Current progress." },
     { name: "max", type: "number", default: "100", description: "Value that counts as complete." },
     { name: "sfx", type: "string | false", default: "\"やった！\"", description: "Sticker shown at 100% in kawaii mode. false hides it." },

@@ -5,8 +5,9 @@ export const metadata = {
 
 # Button
 
-A mochi-squishy button. It squashes when pressed, wobbles back like jelly, and
-pops sparkles, hearts and a little onomatopoeia when clicked.
+A mochi-squishy button. It squashes when pressed and wobbles back like jelly.
+In kawaii mode the release is a full beat: a soft glow, manga emphasis
+lines, clouds rolling off both ends, sparkles and an onomatopoeia that slams in.
 
 <ComponentPreview name="button-demo" />
 
@@ -66,7 +67,7 @@ look and behavior.
   rows={[
     { name: "variant", type: '"default" | "secondary" | "mint" | "destructive" | "outline" | "ghost" | "link"', default: '"default"', description: "Color and surface style." },
     { name: "size", type: '"sm" | "default" | "lg" | "icon"', default: '"default"', description: "Height and padding." },
-    { name: "intensity", type: '"kawaii" | "subtle" | "off"', default: '"kawaii"', description: "How much moe: motion, particles and sticker." },
+    { name: "intensity", type: '"kawaii" | "subtle" | "off"', default: '"kawaii"', description: "kawaii: squish, soft glow, emphasis lines, clouds and a slammed-in sticker. subtle: a small bounce and sparkles. off: plain." },
     { name: "sfx", type: "string | false", default: "random", description: "Onomatopoeia shown in kawaii mode. false hides it." },
     { name: "fx", type: "BurstOptions", description: "Overrides for the click burst (shapes, colors, count, power, size…)." },
     { name: "asChild", type: "boolean", default: "false", description: "Merge props onto the child element instead of rendering a <button>." },
