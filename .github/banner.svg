@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 420" role="img" aria-label="yan: kawaii React components">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe0ee"/>
+      <stop offset=".55" stop-color="#f0e6ff"/>
+      <stop offset="1" stop-color="#dff0ff"/>
+    </linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2" fill="#b79be8" opacity=".35"/>
+    </pattern>
+    <clipPath id="frame">
+      <rect width="1200" height="420" rx="40"/>
+    </clipPath>
+    <radialGradient id="mochi" cx="38%" cy="26%" r="80%">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".62" stop-color="#fff1f7"/>
+      <stop offset="1" stop-color="#ffc9e0"/>
+    </radialGradient>
+    <radialGradient id="blush" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ff7fb0" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ff7fb0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="candy" x1="0" y1="135" x2="0" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffc0dc"/>
+      <stop offset="1" stop-color="#ff8cbe"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#e8559a" flood-opacity=".3"/>
+    </filter>
+    <path id="word" d="M470 150 506 232M546 150 500 262Q488 290 458 284M664 195a42 45 0 1 1-84 0a42 45 0 1 1 84 0M664 150V240M724 150V240M724 196Q724 150 767 150Q810 150 810 196V240"/>
+    <path id="spark" d="M0-14C2-4 4-2 14 0 4 2 2 4 0 14-2 4-4 2-14 0-4-2-2-4 0-14Z"/>
+    <path id="heart" d="M0 12.4C-11.6 4.6-14-1.2-14-5.6-14-9.4-11-12-7.4-12-4.4-12-1.8-10.2 0-7.4 1.8-10.2 4.4-12 7.4-12 11-12 14-9.4 14-5.6 14-1.2 11.6 4.6 0 12.4Z"/>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1200" height="420" fill="url(#sky)"/>
+    <rect width="1200" height="420" fill="url(#dots)"/>
+    <g fill="#fff" opacity=".9">
+      <circle cx="0" cy="424" r="26"/><circle cx="48" cy="424" r="26"/><circle cx="96" cy="424" r="26"/><circle cx="144" cy="424" r="26"/>
+      <circle cx="192" cy="424" r="26"/><circle cx="240" cy="424" r="26"/><circle cx="288" cy="424" r="26"/><circle cx="336" cy="424" r="26"/>
+      <circle cx="384" cy="424" r="26"/><circle cx="432" cy="424" r="26"/><circle cx="480" cy="424" r="26"/><circle cx="528" cy="424" r="26"/>
+      <circle cx="576" cy="424" r="26"/><circle cx="624" cy="424" r="26"/><circle cx="672" cy="424" r="26"/><circle cx="720" cy="424" r="26"/>
+      <circle cx="768" cy="424" r="26"/><circle cx="816" cy="424" r="26"/><circle cx="864" cy="424" r="26"/><circle cx="912" cy="424" r="26"/>
+      <circle cx="960" cy="424" r="26"/><circle cx="1008" cy="424" r="26"/><circle cx="1056" cy="424" r="26"/><circle cx="1104" cy="424" r="26"/>
+      <circle cx="1152" cy="424" r="26"/><circle cx="1200" cy="424" r="26"/>
+    </g>
+
+    <!-- mochi -->
+    <ellipse cx="240" cy="338" rx="118" ry="14" fill="#e8559a" opacity=".18"/>
+    <g transform="translate(102 76) scale(2.3)">
+      <path d="M60 30C98 30 113 66 111 87c-2 19-20 22-51 22S11 106 9 87C7 66 22 30 60 30Z" fill="url(#mochi)" stroke="#f58bb8" stroke-width="2.5"/>
+      <path d="M33 51c6-10 17-14 25-14" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="45" cy="72" rx="4.4" ry="6" fill="#4a2140"/>
+      <ellipse cx="75" cy="72" rx="4.4" ry="6" fill="#4a2140"/>
+      <circle cx="46.6" cy="69.6" r="1.8" fill="#fff"/>
+      <circle cx="76.6" cy="69.6" r="1.8" fill="#fff"/>
+      <ellipse cx="33" cy="83" rx="9" ry="5.5" fill="url(#blush)"/>
+      <ellipse cx="87" cy="83" rx="9" ry="5.5" fill="url(#blush)"/>
+      <path d="M54 80q3 4.4 6 0q3 4.4 6 0" fill="none" stroke="#4a2140" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+
+    <!-- wordmark -->
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <use xlink:href="#word" href="#word" stroke="#fff" stroke-width="52" filter="url(#soft)"/>
+      <use xlink:href="#word" href="#word" stroke="#e8559a" stroke-width="30" transform="translate(0 9)"/>
+      <use xlink:href="#word" href="#word" stroke="url(#candy)" stroke-width="30"/>
+      <use xlink:href="#word" href="#word" stroke="#fff" stroke-width="5" opacity=".65" transform="translate(-4 -8)"/>
+    </g>
+
+    <!-- やん tag -->
+    <g transform="translate(900 150) rotate(-8)">
+      <rect x="-48" y="-21" width="96" height="48" rx="24" fill="#e6b93c"/>
+      <rect x="-48" y="-26" width="96" height="48" rx="24" fill="#fff1a8" stroke="#fff" stroke-width="4"/>
+      <text y="7" text-anchor="middle" font-family="'Hiragino Maru Gothic ProN','Yu Gothic UI','Meiryo',system-ui,sans-serif" font-size="26" font-weight="800" fill="#6b4a12">やん</text>
+    </g>
+
+    <!-- candy pills -->
+    <g font-family="'Hiragino Maru Gothic ProN','Yu Gothic UI','Meiryo',system-ui,sans-serif" font-size="22" font-weight="800" text-anchor="middle">
+      <g transform="translate(452 312)">
+        <rect y="7" width="140" height="50" rx="25" fill="#e8559a"/>
+        <rect width="140" height="50" rx="25" fill="#ff9cc8"/>
+        <rect x="14" y="4" width="112" height="16" rx="8" fill="#fff" opacity=".5"/>
+        <text x="70" y="33" fill="#5a1238">ぷにっ</text>
+      </g>
+      <g transform="translate(612 312)">
+        <rect y="7" width="140" height="50" rx="25" fill="#9a78d8"/>
+        <rect width="140" height="50" rx="25" fill="#cdb4f5"/>
+        <rect x="14" y="4" width="112" height="16" rx="8" fill="#fff" opacity=".5"/>
+        <text x="70" y="33" fill="#3a2068">キラッ</text>
+      </g>
+      <g transform="translate(772 312)">
+        <rect y="7" width="140" height="50" rx="25" fill="#5cc497"/>
+        <rect width="140" height="50" rx="25" fill="#a8ecc9"/>
+        <rect x="14" y="4" width="112" height="16" rx="8" fill="#fff" opacity=".5"/>
+        <text x="70" y="33" fill="#14503a">ぽよん</text>
+      </g>
+    </g>
+
+    <!-- sparkles and hearts -->
+    <g fill="#ffe27a" stroke="#e6b93c" stroke-width="2" stroke-linejoin="round">
+      <use xlink:href="#spark" href="#spark" transform="translate(404 112) scale(1.6)"/>
+      <use xlink:href="#spark" href="#spark" transform="translate(1010 246) scale(2.2)"/>
+      <use xlink:href="#spark" href="#spark" transform="translate(88 96)"/>
+      <use xlink:href="#spark" href="#spark" transform="translate(1118 96) scale(1.3)"/>
+    </g>
+    <g fill="#ff9cc8" stroke="#fff" stroke-width="3" stroke-linejoin="round">
+      <use xlink:href="#heart" href="#heart" transform="translate(1062 150) rotate(14) scale(1.7)"/>
+      <use xlink:href="#heart" href="#heart" transform="translate(388 300) rotate(-16) scale(1.2)"/>
+    </g>
+    <g fill="#cdb4f5" stroke="#fff" stroke-width="3" stroke-linejoin="round">
+      <use xlink:href="#heart" href="#heart" transform="translate(1124 312) rotate(-10) scale(1.4)"/>
+    </g>
+  </g>
+</svg>

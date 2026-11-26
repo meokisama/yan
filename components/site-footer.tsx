@@ -17,7 +17,7 @@ export function SiteFooter() {
               <span className="font-display text-5xl leading-none text-yan-sakura">yan</span>
             </div>
             <p className="mt-4 max-w-xs text-sm font-medium text-[oklch(0.8_0.05_330)]">
-              Moe kawaii components you copy into your app. Squishy, sparkly, accessible.
+              Kawaii React components that squish, sparkle and go ぷにっ.
             </p>
           </div>
           <nav className="grid grid-cols-2 gap-x-12 gap-y-2 text-sm font-extrabold">

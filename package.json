@@ -2,7 +2,7 @@
   "name": "yan",
   "version": "0.1.0",
   "private": true,
-  "description": "Yan: moe kawaii components you copy into your app. Built on Radix + Tailwind, distributed via the shadcn registry.",
+  "description": "Kawaii React components that squish, sparkle and go ぷにっ. Built on Radix and Tailwind, added to your app with the shadcn CLI.",
   "license": "MIT",
   "scripts": {
     "dev": "tsx scripts/build-registry.mts && next dev",

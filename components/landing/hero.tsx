@@ -118,7 +118,7 @@ export function Hero() {
             transition={spring}
           >
             <Badge variant="outline" dot className="mb-5 px-3.5 py-1 tracking-widest">
-              v0 · moe kawaii components
+              v0 · kawaii React components
             </Badge>
           </motion.div>
 

@@ -1,75 +1,73 @@
-# yan やん
+<div align="center">
 
-Moe kawaii components you copy into your app. Squishy, sparkly, accessible.
-Built on **Radix + Tailwind v4**, installed with the **shadcn CLI**.
+<a href="https://yan.moe"><img src=".github/banner.svg" alt="yan やん: kawaii React components" width="880" /></a>
+
+### Kawaii React components that squish, sparkle and go ぷにっ
+
+Built on Radix and Tailwind, added to your app with the shadcn CLI.
+
+[![Docs](https://img.shields.io/badge/docs-yan.moe-ff9cc8?style=for-the-badge&labelColor=5a1238)](https://yan.moe/docs)
+[![Radix](https://img.shields.io/badge/built_on-Radix-cdb4f5?style=for-the-badge&labelColor=3a2068)](https://www.radix-ui.com)
+[![Tailwind v4](https://img.shields.io/badge/styled_with-Tailwind_v4-a8ecc9?style=for-the-badge&labelColor=14503a)](https://tailwindcss.com)
+[![MIT](https://img.shields.io/badge/license-MIT-fff1a8?style=for-the-badge&labelColor=6b4a12)](LICENSE)
+
+**[Docs](https://yan.moe/docs)** ・ **[Components](https://yan.moe/docs/components/button)** ・ **[Theming](https://yan.moe/docs/theming)**
+
+</div>
+
+## ✿ What is it
+
+Yan gives buttons, switches, dialogs and friends candy surfaces, a mochi squish and little bursts of sparkles and hearts. The code lands
+in your project, so it is yours to change.
+
+Every interactive component takes `intensity="kawaii" | "subtle" | "off"`, and all motion respects `prefers-reduced-motion`.
+
+## ♡ Install
 
 ```bash
 npx shadcn@latest add https://yan.moe/r/button.json
 ```
 
-This repo is a single Next.js app that is both the documentation site and the
-registry: `shadcn build` writes the installable JSON into `public/r/`, so
-deploying the site publishes the registry.
+```tsx
+import { Button } from "@/components/ui/button";
 
-Components so far: **Avatar, Badge, Button, Checkbox, Dialog, Input, Progress,
-Select, Slider, Switch, Tabs, Toast, Tooltip**. The interactive ones take an
-`intensity` prop (`"kawaii" | "subtle" | "off"`) and draw their particles
-through `yan-fx`.
-
-The site itself also uses `three` (the pokeable 3D mochi in the hero) and
-`motion` (scroll reveals, tilt cards). Those are docs-site dependencies only;
-nothing in `registry/` imports them.
-
-## Layout
-
-```
-yan/
-├─ app/                      landing page + docs (MDX pages under app/docs)
-├─ components/               site UI (header, footer, mascot, docs widgets)
-│  └─ landing/               landing page sections + the three.js hero scene
-├─ registry/
-│  ├─ yan/ui/                component source (what users receive)
-│  ├─ yan/lib/               yan-fx (effects layer), utils
-│  ├─ yan/examples/          demos used in the docs (also published)
-│  ├─ theme.ts               design tokens: single source of truth
-│  ├─ index.ts               registry items → registry.json
-│  └─ examples.tsx           name → example map for <ComponentPreview />
-├─ scripts/build-registry.mts   generates registry.json + styles/yan-theme.css
-├─ lib/site.ts               site name, URL, GitHub link
-└─ public/r/                 built registry JSON (generated)
+export function Hello() {
+  return <Button sfx="やった！">Save</Button>;
+}
 ```
 
-Registry source imports use the paths users will have (`@/components/ui/button`,
-`@/lib/yan-fx`). `tsconfig.json` maps those to `registry/`, so the file that's
-published is exactly the file the docs render.
+New to shadcn? Start with the [installation guide](https://yan.moe/docs/installation).
 
-## Develop
+## ★ Components
+
+[Avatar](https://yan.moe/docs/components/avatar) ・
+[Badge](https://yan.moe/docs/components/badge) ・
+[Button](https://yan.moe/docs/components/button) ・
+[Checkbox](https://yan.moe/docs/components/checkbox) ・
+[Dialog](https://yan.moe/docs/components/dialog) ・
+[Input](https://yan.moe/docs/components/input) ・
+[Progress](https://yan.moe/docs/components/progress) ・
+[Select](https://yan.moe/docs/components/select) ・
+[Slider](https://yan.moe/docs/components/slider) ・
+[Switch](https://yan.moe/docs/components/switch) ・
+[Tabs](https://yan.moe/docs/components/tabs) ・
+[Toast](https://yan.moe/docs/components/toast) ・
+[Tooltip](https://yan.moe/docs/components/tooltip)
+
+## ✿ Develop
+
+This repo is one Next.js app: the docs site and the registry it serves from `/r`.
 
 ```bash
 yarn install
-yarn dev          # regenerates theme, runs the site on http://localhost:3000
-yarn build        # registry:build (registry.json → public/r) + next build
-yarn start        # serve the production build
-yarn typecheck
-yarn lint
+yarn dev      # http://localhost:3000
+yarn build    # builds the registry, then the site
 ```
 
-Registry cross-references (`button` → `yan-fx`, `yan-theme`) and the install
-commands in the docs point at `https://yan.moe`. To test installs against a
-local server instead:
+To test installs against a local server, build with `NEXT_PUBLIC_SITE_URL=http://localhost:3000`.
 
-```bash
-NEXT_PUBLIC_SITE_URL=http://localhost:3000 yarn build
-```
+<div align="center">
 
-## Adding a component
+MIT ・ made with ♡ and too much sugar
 
-1. Write `registry/yan/ui/<name>.tsx` (Radix primitive + `yan-fx` + an `intensity` prop).
-2. Add demos in `registry/yan/examples/` and list them in `registry/examples.tsx`.
-3. Register the item (and its examples) in `registry/index.ts`.
-4. Write `app/docs/components/<name>/page.mdx` and add it to `components/docs/docs-sidebar.tsx`.
-5. `yarn build`.
-
-## License
-
-MIT
+</div>
