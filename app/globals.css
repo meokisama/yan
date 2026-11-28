@@ -44,6 +44,11 @@
   /* Where the plum night ink lives regardless of theme (marquee, footer). */
   --night: oklch(0.24 0.075 320);
   --night-deep: oklch(0.17 0.06 310);
+  --stars:
+    radial-gradient(1.4px 1.4px at 12% 18%, #fff, transparent 60%), radial-gradient(1px 1px at 68% 8%, #fff, transparent 60%),
+    radial-gradient(1.6px 1.6px at 84% 42%, #ffd6ea, transparent 60%), radial-gradient(1px 1px at 32% 62%, #fff, transparent 60%),
+    radial-gradient(1.3px 1.3px at 52% 30%, #e3d4ff, transparent 60%), radial-gradient(1px 1px at 6% 78%, #fff, transparent 60%),
+    radial-gradient(1.5px 1.5px at 92% 88%, #fff, transparent 60%), radial-gradient(1px 1px at 44% 92%, #ffd6ea, transparent 60%);
   --scroll-thumb: linear-gradient(135deg, color-mix(in oklch, var(--primary) 60%, white), var(--primary) 45%, var(--yan-sakura-edge));
 }
 
@@ -135,19 +140,47 @@
     var(--background);
 }
 .dark .yan-sky::after {
-  /* stars */
-  background-image:
-    radial-gradient(1.4px 1.4px at 12% 18%, #fff, transparent 60%),
-    radial-gradient(1px 1px at 68% 8%, #fff, transparent 60%),
-    radial-gradient(1.6px 1.6px at 84% 42%, #ffd6ea, transparent 60%),
-    radial-gradient(1px 1px at 32% 62%, #fff, transparent 60%),
-    radial-gradient(1.3px 1.3px at 52% 30%, #e3d4ff, transparent 60%),
-    radial-gradient(1px 1px at 6% 78%, #fff, transparent 60%),
-    radial-gradient(1.5px 1.5px at 92% 88%, #fff, transparent 60%),
-    radial-gradient(1px 1px at 44% 92%, #ffd6ea, transparent 60%);
+  background-image: var(--stars);
   background-size: 420px 420px;
   mask-image: none;
   opacity: 0.7;
+}
+
+/* The same star field, for night surfaces in either theme (the footer). */
+@utility bg-stars {
+  background-image: var(--stars);
+  background-size: 420px 420px;
+}
+
+/* A streak that crosses the footer sky now and then. */
+.shooting-star {
+  position: absolute;
+  width: 7rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #fff);
+  rotate: 155deg;
+  opacity: 0;
+  animation: shoot 9s ease-in 2s infinite;
+}
+@keyframes shoot {
+  0% {
+    opacity: 0;
+    translate: 0 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  12%,
+  100% {
+    opacity: 0;
+    translate: -22rem 10rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shooting-star {
+    animation: none;
+  }
 }
 
 /* ------------------------------------------------------------------------ */
