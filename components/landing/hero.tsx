@@ -101,7 +101,7 @@ export function Hero() {
                 animate={{ scale: 1, rotate: -3 }}
                 transition={{ type: "spring", stiffness: 500, damping: 12 }}
               >
-                <Badge variant={pokes >= 10 ? "lemon" : "default"} className="px-3.5 py-1 font-display text-base font-normal">
+                <Badge color={pokes >= 10 ? "lemon" : "sakura"} className="px-3.5 py-1 font-display text-base font-normal">
                   ぷに ×{pokes}
                   {pokes >= 10 ? " ♡ もちもち！" : ""}
                 </Badge>

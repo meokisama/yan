@@ -1,0 +1,52 @@
+export const metadata = {
+  title: "Textarea",
+  description: "A roomy field with a mochi who peeks over the edge and watches you type.",
+}
+
+# Textarea
+
+A soft, roomy field that grows with its text, and a mochi who keeps you
+company. She dozes behind the top edge, pops up with a "！" when you focus the
+field, follows the caret with her eyes and beams while you type. Every
+keystroke kicks a sparkle off the caret, a new line drops a heart, and
+deleting leaves a little puff.
+
+<ComponentPreview name="textarea-demo" />
+
+## Installation
+
+<InstallCommand item="textarea" />
+
+## Usage
+
+```tsx
+import { Textarea } from "@/components/ui/textarea"
+```
+
+```tsx
+<Textarea placeholder="Tell us everything" />
+```
+
+For other bursts, pass a recipe from [Effects](/docs/effects):
+`<Textarea fx={{ ...fxRecipes.hearts, count: 2 }} />`. Keep `count` low: it fires on every keystroke.
+
+In kawaii mode the field sits in a full-width wrapper that holds the mochi, and
+`className` still goes to the field. The mochi stands about 28px above the top
+edge, so leave that much room over the field.
+
+## Accessibility
+
+- It renders a native `<textarea>`. Name it with a `Label`.
+- Text is 16px below the `sm` breakpoint, so iOS does not zoom the page on focus.
+- Growing with the text uses `field-sizing: content`. Browsers without it show a fixed-height field that scrolls.
+- The mochi is decoration: hidden from screen readers and out of the pointer's way.
+- With `prefers-reduced-motion: reduce`, she pops up without the bounce, and no particles are drawn.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii: the mochi, sparkles off the caret, a heart on a new line, a puff on delete. subtle and off: only the focus ring." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the per-keystroke burst." },
+  ]}
+/>

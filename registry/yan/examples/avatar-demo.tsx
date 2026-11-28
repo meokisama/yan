@@ -8,16 +8,16 @@ export default function AvatarDemo() {
         <AvatarFallback>MC</AvatarFallback>
       </Avatar>
       <AvatarGroup>
-        <Avatar variant="lavender">
+        <Avatar color="lavender">
           <AvatarFallback>YU</AvatarFallback>
         </Avatar>
-        <Avatar variant="mint">
+        <Avatar color="mint">
           <AvatarFallback>MI</AvatarFallback>
         </Avatar>
-        <Avatar variant="lemon">
+        <Avatar color="lemon">
           <AvatarFallback>RE</AvatarFallback>
         </Avatar>
-        <Avatar variant="sky">
+        <Avatar color="sky">
           <AvatarFallback>+3</AvatarFallback>
         </Avatar>
       </AvatarGroup>

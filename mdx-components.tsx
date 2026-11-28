@@ -4,6 +4,7 @@ import { isValidElement } from "react"
 
 import { CodeBlock } from "@/components/docs/code-block"
 import { ComponentPreview } from "@/components/docs/component-preview"
+import { FxPlayground } from "@/components/docs/fx-playground"
 import { InstallCommand } from "@/components/docs/install-command"
 import { PropsTable } from "@/components/docs/props-table"
 import { cn } from "@/lib/utils"
@@ -80,6 +81,7 @@ const components: MDXComponents = {
     />
   ),
   ComponentPreview,
+  FxPlayground,
   InstallCommand,
   PropsTable,
 }

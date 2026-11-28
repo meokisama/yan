@@ -1,0 +1,54 @@
+export const metadata = {
+  title: "Popover",
+  description: "A speech bubble that lands like jelly with a spray of stars and leaves in a cloud.",
+}
+
+# Popover
+
+A speech bubble with a candy tail. It lands like jelly out of whatever opened
+it, with two puffs where it sprang from and a spray of stars off the corner
+where its own star keeps twinkling. Close it and it leaves in a cloud. ぽんっ
+
+<ComponentPreview name="popover-demo" />
+
+## Installation
+
+<InstallCommand item="popover" />
+
+## Usage
+
+```tsx
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+```
+
+```tsx
+<Popover>
+  <PopoverTrigger asChild>
+    <Button>Open</Button>
+  </PopoverTrigger>
+  <PopoverContent>Anything can go in here.</PopoverContent>
+</Popover>
+```
+
+`PopoverClose` closes it from inside, and `PopoverAnchor` positions it against
+something other than the trigger. For other bursts, pass a recipe from
+[Effects](/docs/effects): `<PopoverContent fx={fxRecipes.bubbles}>`.
+
+## Accessibility
+
+- Built on Radix Popover: focus moves into the card when it opens and returns to the trigger on Escape or an outside click.
+- On a phone the card is never wider than the screen minus a 16px margin on each side.
+- With `prefers-reduced-motion: reduce`, the card appears without the bounce or the particles.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on PopoverContent. kawaii: jelly landing, puffs, stars, a corner star and a cloud on close. subtle: fade in. off: just appear." },
+    { name: "fx", type: "BurstOptions", description: "Set on PopoverContent. Overrides for the burst when it opens (kawaii only)." },
+    { name: "hideArrow", type: "boolean", default: "false", description: "Set on PopoverContent. Hide the tail that points at the trigger." },
+    { name: "side", type: "\"top\" | \"right\" | \"bottom\" | \"left\"", default: "\"bottom\"", description: "Set on PopoverContent. Preferred side." },
+    { name: "align", type: "\"start\" | \"center\" | \"end\"", default: "\"center\"", description: "Set on PopoverContent. Alignment along that side." },
+    { name: "sideOffset", type: "number", default: "12", description: "Set on PopoverContent. Gap between trigger and bubble, in px." },
+  ]}
+/>

@@ -12,17 +12,20 @@ const badgeVariants = cva(
   ],
   {
     variants: {
+      color: {
+        sakura: "text-primary-foreground [--yan-c:var(--primary)] [--yan-edge:var(--yan-sakura-edge)]",
+        lavender: "text-secondary-foreground [--yan-c:var(--secondary)] [--yan-edge:var(--yan-lavender-edge)]",
+        mint: "text-yan-mint-foreground [--yan-c:var(--yan-mint)] [--yan-edge:var(--yan-mint-edge)]",
+        sky: "text-yan-sky-foreground [--yan-c:var(--yan-sky)] [--yan-edge:var(--yan-sky-edge)]",
+        lemon: "text-yan-lemon-foreground [--yan-c:var(--yan-lemon)] [--yan-edge:var(--yan-lemon-edge)]",
+        peach: "text-yan-peach-foreground [--yan-c:var(--yan-peach)] [--yan-edge:var(--yan-peach-edge)]",
+      },
       variant: {
-        default: "bg-primary text-primary-foreground [--yan-edge:var(--yan-sakura-edge)]",
-        lavender: "bg-secondary text-secondary-foreground [--yan-edge:var(--yan-lavender-edge)]",
-        mint: "bg-yan-mint text-yan-mint-foreground [--yan-edge:var(--yan-mint-edge)]",
-        sky: "bg-yan-sky text-yan-sky-foreground [--yan-edge:var(--yan-sky-edge)]",
-        lemon: "bg-yan-lemon text-yan-lemon-foreground [--yan-edge:var(--yan-lemon-edge)]",
-        peach: "bg-yan-peach text-yan-peach-foreground [--yan-edge:var(--yan-peach-edge)]",
-        outline: "border-primary bg-card text-foreground [--yan-edge:var(--primary)] dark:border-primary",
+        default: "bg-(--yan-c)",
+        outline: "border-(--yan-c) bg-card text-foreground [--yan-edge:var(--yan-c)] dark:border-(--yan-c)",
       },
     },
-    defaultVariants: { variant: "default" },
+    defaultVariants: { color: "sakura", variant: "default" },
   }
 )
 
@@ -34,10 +37,10 @@ type BadgeProps = React.ComponentProps<"span"> &
   }
 
 /** A sticker-style label: candy fill, white outline, tiny edge shadow. */
-function Badge({ className, variant, asChild = false, dot = false, children, ...props }: BadgeProps) {
+function Badge({ className, color, variant, asChild = false, dot = false, children, ...props }: BadgeProps) {
   const Comp = asChild ? Slot.Root : "span"
   return (
-    <Comp data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props}>
+    <Comp data-slot="badge" className={cn(badgeVariants({ color, variant }), className)} {...props}>
       {dot ? (
         <>
           <span

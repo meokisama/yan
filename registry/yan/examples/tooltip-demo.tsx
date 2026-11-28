@@ -5,7 +5,7 @@ export default function TooltipDemo() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="secondary" sfx={false}>
+        <Button color="lavender" sfx={false}>
           Hover me
         </Button>
       </TooltipTrigger>

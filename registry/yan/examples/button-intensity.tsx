@@ -6,7 +6,7 @@ export default function ButtonIntensity() {
       <Button intensity="off">Off</Button>
       <Button intensity="subtle">Subtle</Button>
       <Button intensity="kawaii">Kawaii</Button>
-      <Button intensity="kawaii" sfx="やった！" variant="mint">
+      <Button intensity="kawaii" sfx="やった！" color="mint">
         Custom sfx
       </Button>
     </div>

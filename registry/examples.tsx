@@ -1,6 +1,15 @@
 import type { ComponentType } from "react"
 
+import AccordionDemo from "@/registry/yan/examples/accordion-demo"
 import AvatarDemo from "@/registry/yan/examples/avatar-demo"
+import CardDemo from "@/registry/yan/examples/card-demo"
+import CardInteractive from "@/registry/yan/examples/card-interactive"
+import DropdownMenuDemo from "@/registry/yan/examples/dropdown-menu-demo"
+import LabelDemo from "@/registry/yan/examples/label-demo"
+import PopoverDemo from "@/registry/yan/examples/popover-demo"
+import RadioGroupDemo from "@/registry/yan/examples/radio-group-demo"
+import SkeletonDemo from "@/registry/yan/examples/skeleton-demo"
+import TextareaDemo from "@/registry/yan/examples/textarea-demo"
 import DialogDemo from "@/registry/yan/examples/dialog-demo"
 import InputDemo from "@/registry/yan/examples/input-demo"
 import SelectDemo from "@/registry/yan/examples/select-demo"
@@ -21,7 +30,16 @@ import SwitchDemo from "@/registry/yan/examples/switch-demo"
 
 /** Live examples rendered by <ComponentPreview name="..." /> in the docs. */
 export const examples: Record<string, ComponentType> = {
+  "accordion-demo": AccordionDemo,
   "avatar-demo": AvatarDemo,
+  "card-demo": CardDemo,
+  "card-interactive": CardInteractive,
+  "dropdown-menu-demo": DropdownMenuDemo,
+  "label-demo": LabelDemo,
+  "popover-demo": PopoverDemo,
+  "radio-group-demo": RadioGroupDemo,
+  "skeleton-demo": SkeletonDemo,
+  "textarea-demo": TextareaDemo,
   "dialog-demo": DialogDemo,
   "input-demo": InputDemo,
   "select-demo": SelectDemo,

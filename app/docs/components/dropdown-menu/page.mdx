@@ -1,0 +1,65 @@
+export const metadata = {
+  title: "Dropdown Menu",
+  description: "A puffy menu with a gummy highlight that stretches from item to item.",
+}
+
+# Dropdown Menu
+
+A puffy menu that lands like jelly and deals its items in one by one. The
+highlight is a gummy candy that stretches from item to item as you move, and
+turns coral over a destructive one. Pick an item and it throws sparkles and
+hearts on its way out. ぷにっ
+
+<ComponentPreview name="dropdown-menu-demo" />
+
+## Installation
+
+<InstallCommand item="dropdown-menu" />
+
+## Usage
+
+```tsx
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+```
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button>Open</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem>Add to box</DropdownMenuItem>
+    <DropdownMenuItem variant="destructive">Empty the box</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+Also exported: `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuShortcut`,
+`DropdownMenuGroup`, `DropdownMenuCheckboxItem`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`,
+`DropdownMenuSub`, `DropdownMenuSubTrigger` and `DropdownMenuSubContent`.
+
+For other bursts, pass a recipe from [Effects](/docs/effects):
+`<DropdownMenuContent fx={fxRecipes.stars}>`.
+
+## Accessibility
+
+- Built on Radix Dropdown Menu: arrow keys, typeahead, Home/End and Escape all work, and focus returns to the trigger.
+- Checkbox and radio items announce their state. The heart is decoration.
+- With `prefers-reduced-motion: reduce`, the menu appears at once, the highlight jumps instead of stretching, and no particles are drawn.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on DropdownMenuContent. kawaii: jelly landing, items dealt in, a stretching gummy highlight, sparkles and hearts on pick. subtle: fade, a sliding highlight, a few sparkles. off: just appear, flat highlight." },
+    { name: "fx", type: "BurstOptions", description: "Set on DropdownMenuContent. Overrides for the burst from the picked item." },
+    { name: "variant", type: "\"default\" | \"destructive\"", default: "\"default\"", description: "Set on DropdownMenuItem. destructive is coral and leaves a puff instead of sparkles." },
+    { name: "inset", type: "boolean", default: "false", description: "Set on DropdownMenuItem. Indent to line up with items that have an icon." },
+    { name: "side / align", type: "string", default: "\"bottom\" / \"center\"", description: "Set on DropdownMenuContent. Where the menu sits against the trigger." },
+  ]}
+/>

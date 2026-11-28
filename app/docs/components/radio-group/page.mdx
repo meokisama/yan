@@ -1,0 +1,54 @@
+export const metadata = {
+  title: "Radio Group",
+  description: "Round radios: a heart flies from the old choice to the new one and a gumdrop plops in.",
+}
+
+# Radio Group
+
+Pick one. The old radio lets go in a puff, a heart flies across to the one you
+chose, and a gumdrop plops into it with a wobble and a ring of hearts. ぽとっ
+
+<ComponentPreview name="radio-group-demo" />
+
+## Installation
+
+<InstallCommand item="radio-group" />
+
+## Usage
+
+```tsx
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+```
+
+```tsx
+<RadioGroup defaultValue="regular">
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="small" id="small" />
+    <Label htmlFor="small">Small</Label>
+  </div>
+  <div className="flex items-center gap-3">
+    <RadioGroupItem value="regular" id="regular" />
+    <Label htmlFor="regular">Regular</Label>
+  </div>
+</RadioGroup>
+```
+
+For other bursts, pass a recipe from [Effects](/docs/effects): `<RadioGroup fx={fxRecipes.stars}>`.
+
+## Accessibility
+
+- Built on Radix Radio Group: Tab reaches the group, arrow keys move and choose.
+- Give the group an `aria-label` or `aria-labelledby`, and each radio a `Label`.
+- With `prefers-reduced-motion: reduce`, the gumdrop appears at once, with no flight and no particles.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on RadioGroup. kawaii: a heart flies from the old radio, the gumdrop plops in with a ring of hearts. subtle: pop in with a few sparkles. off: it just moves." },
+    { name: "fx", type: "BurstOptions", description: "Set on RadioGroup. Overrides for the burst where the heart lands." },
+    { name: "value / defaultValue", type: "string", description: "Set on RadioGroup. Controlled and uncontrolled value." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Set on RadioGroup. Called when a radio is chosen." },
+    { name: "orientation", type: "\"vertical\" | \"horizontal\"", default: "\"vertical\"", description: "Set on RadioGroup. Which arrow keys move between radios." },
+  ]}
+/>

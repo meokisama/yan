@@ -1,0 +1,44 @@
+export const metadata = {
+  title: "Label",
+  description: "A chunky label that hops and underlines itself while its field has focus.",
+}
+
+# Label
+
+A chunky label that perks up with its field. Focus the field and the label
+hops, turns sakura and draws a wavy underline. Mark it `required` and a little
+star twinkles after the text, then spins while the field has focus. キラッ
+
+<ComponentPreview name="label-demo" />
+
+## Installation
+
+<InstallCommand item="label" />
+
+## Usage
+
+```tsx
+import { Label } from "@/components/ui/label"
+```
+
+```tsx
+<Label htmlFor="email" required>Email</Label>
+<Input id="email" type="email" required />
+```
+
+## Accessibility
+
+- Built on Radix Label: clicking it focuses the field named by `htmlFor`, and double-clicking does not select its text.
+- The star is decoration and hidden from screen readers. Put `required` on the field too.
+- The label follows focus only through `htmlFor`. A field wrapped inside the label is not watched.
+- With `prefers-reduced-motion: reduce`, the label changes colour without the hop, and the star stays still.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "required", type: "boolean", default: "false", description: "Show a star after the text." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii: hop, sakura ink, wavy underline and a spinning star on focus. subtle: sakura ink only. off: nothing changes." },
+    { name: "htmlFor", type: "string", description: "The id of the field this label names and watches." },
+  ]}
+/>

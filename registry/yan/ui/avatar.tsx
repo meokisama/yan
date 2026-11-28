@@ -14,7 +14,7 @@ const avatarVariants = cva(
   ],
   {
     variants: {
-      variant: {
+      color: {
         sakura: "[--yan-c:var(--yan-sakura)] [--yan-edge:var(--yan-sakura-edge)]",
         lavender: "[--yan-c:var(--yan-lavender)] [--yan-edge:var(--yan-lavender-edge)]",
         mint: "[--yan-c:var(--yan-mint)] [--yan-edge:var(--yan-mint-edge)]",
@@ -28,7 +28,7 @@ const avatarVariants = cva(
         lg: "size-16 text-2xl",
       },
     },
-    defaultVariants: { variant: "sakura", size: "default" },
+    defaultVariants: { color: "sakura", size: "default" },
   }
 )
 
@@ -39,11 +39,11 @@ type AvatarProps = React.ComponentProps<typeof AvatarPrimitive.Root> &
   }
 
 /** A sticker-style avatar: white die-cut ring, candy edge underneath. */
-function Avatar({ className, variant, size, emote, onPointerEnter, ...props }: AvatarProps) {
+function Avatar({ className, color, size, emote, onPointerEnter, ...props }: AvatarProps) {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
-      className={cn(avatarVariants({ variant, size }), className)}
+      className={cn(avatarVariants({ color, size }), className)}
       onPointerEnter={(e) => {
         onPointerEnter?.(e)
         if (emote && e.pointerType !== "touch") popEmote(e.currentTarget, emote)
@@ -63,7 +63,7 @@ function AvatarImage({ className, ...props }: React.ComponentProps<typeof Avatar
   )
 }
 
-/** Shown while the image loads or when there is none. Tinted by the avatar's variant. */
+/** Shown while the image loads or when there is none. Tinted by the avatar's colour. */
 function AvatarFallback({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
   return (
     <AvatarPrimitive.Fallback

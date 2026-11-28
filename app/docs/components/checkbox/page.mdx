@@ -44,7 +44,7 @@ Pair it with a label. The checkbox is a `peer`, so siblings can react to its sta
 <PropsTable
   rows={[
     { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii: pop and a sakura bloom. subtle: a few sparkles. off: neither." },
-    { name: "fx", type: "BurstOptions", description: "Overrides for the sparkles fired in subtle mode." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the sparkles fired when it is checked. In kawaii mode, passing it adds a burst to the bloom." },
     { name: "checked / defaultChecked", type: "boolean | \"indeterminate\"", description: "Controlled and uncontrolled state, as in Radix." },
     { name: "onCheckedChange", type: "(checked: CheckedState) => void", description: "Called when the state changes." },
   ]}

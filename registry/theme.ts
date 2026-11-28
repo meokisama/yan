@@ -184,6 +184,36 @@ const css: Record<string, Record<string, unknown>> = {
   "@keyframes yan-toast-out": {
     to: { opacity: "0", translate: "110% 0" },
   },
+  "@keyframes yan-accordion-down": {
+    from: { height: "0", opacity: "0" },
+    to: { height: "var(--radix-accordion-content-height)", opacity: "1" },
+  },
+  "@keyframes yan-accordion-up": {
+    from: { height: "var(--radix-accordion-content-height)", opacity: "1" },
+    to: { height: "0", opacity: "0" },
+  },
+  // Moves a 200%-wide background by exactly its own width, so a tiling gradient loops without a seam.
+  "@keyframes yan-shimmer": {
+    from: { "background-position": "150% 0" },
+    to: { "background-position": "-50% 0" },
+  },
+  // A gumdrop landing: squash wide, stretch tall, settle.
+  "@keyframes yan-plop": {
+    "0%": { opacity: "0", scale: "0" },
+    "45%": { opacity: "1", scale: "1.3 0.7" },
+    "70%": { scale: "0.88 1.14" },
+    "100%": { opacity: "1", scale: "1" },
+  },
+  "@keyframes yan-jelly-in": {
+    "0%": { opacity: "0", scale: "0.5" },
+    "50%": { opacity: "1", scale: "1.08 0.92" },
+    "72%": { scale: "0.97 1.04" },
+    "100%": { opacity: "1", scale: "1" },
+  },
+  "@keyframes yan-blink": {
+    "0%, 92%, 100%": { scale: "1 1" },
+    "96%": { scale: "1 0.1" },
+  },
   // Gummy-candy surface: a soft top-to-bottom gradient, a glassy highlight
   // across the upper half, a solid "edge" underneath and a tinted glow.
   // Tint it with --yan-c / --yan-edge; --yan-depth sets how tall the edge is.

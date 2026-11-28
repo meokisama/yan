@@ -1,0 +1,52 @@
+export const metadata = {
+  title: "Accordion",
+  description: "Rows with a bud that blooms into a sakura and drops its petals into the panel.",
+}
+
+# Accordion
+
+Each row carries a bud. Open the row and the bud blooms into a sakura, the row
+rises onto a candy edge with a jelly wobble, and petals fall into the panel as
+it unfolds. Close it and the flower folds back up. ふわっ
+
+<ComponentPreview name="accordion-demo" />
+
+## Installation
+
+<InstallCommand item="accordion" />
+
+## Usage
+
+```tsx
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+```
+
+```tsx
+<Accordion type="single" collapsible>
+  <AccordionItem value="one">
+    <AccordionTrigger>Can I freeze it?</AccordionTrigger>
+    <AccordionContent>Yes. Wrap each piece first.</AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+Use `type="multiple"` to let several rows stay open. For other bursts, pass a
+recipe from [Effects](/docs/effects): `<Accordion fx={fxRecipes.petals}>`.
+
+## Accessibility
+
+- Built on Radix Accordion: each trigger is a button inside a heading, with arrow keys, Home and End moving between rows.
+- The flower is decoration: open and closed are announced through `aria-expanded`.
+- With `prefers-reduced-motion: reduce`, panels open without the unfold, the wobble or the petals.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on Accordion. kawaii: the bud blooms, the row wobbles, petals fall into the panel. subtle: bloom and unfold with a few sparkles. off: it just opens." },
+    { name: "fx", type: "BurstOptions", description: "Set on Accordion. Overrides for the burst that falls from the flower when a row opens." },
+    { name: "type", type: "\"single\" | \"multiple\"", description: "Set on Accordion. One open row at a time, or many." },
+    { name: "collapsible", type: "boolean", default: "false", description: "Set on Accordion with type=\"single\". Lets the open row close again." },
+    { name: "value / defaultValue", type: "string | string[]", description: "Set on Accordion. Controlled and uncontrolled open rows." },
+  ]}
+/>

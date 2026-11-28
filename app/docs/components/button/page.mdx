@@ -27,7 +27,9 @@ import { Button } from "@/components/ui/button"
 
 ## Examples
 
-### Variants
+### Colors & variants
+
+`color` picks the candy. `variant` picks the surface, and `outline` takes the colour too.
 
 <ComponentPreview name="button-variants" />
 
@@ -66,7 +68,8 @@ look and behavior.
 
 <PropsTable
   rows={[
-    { name: "variant", type: '"default" | "secondary" | "mint" | "destructive" | "outline" | "ghost" | "link"', default: '"default"', description: "Color and surface style." },
+    { name: "color", type: '"sakura" | "lavender" | "mint" | "sky" | "lemon" | "peach"', default: '"sakura"', description: "Candy colour of the default and outline variants." },
+    { name: "variant", type: '"default" | "outline" | "destructive" | "ghost" | "link"', default: '"default"', description: "Surface style." },
     { name: "size", type: '"sm" | "default" | "lg" | "icon"', default: '"default"', description: "Height and padding." },
     { name: "intensity", type: '"kawaii" | "subtle" | "off"', default: '"kawaii"', description: "kawaii: squish, soft glow, emphasis lines, clouds and a slammed-in sticker. subtle: a small bounce and sparkles. off: plain." },
     { name: "sfx", type: "string | false", default: "random", description: "Onomatopoeia shown in kawaii mode. false hides it." },

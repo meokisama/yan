@@ -22,7 +22,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 ```
 
 ```tsx
-<Avatar variant="mint">
+<Avatar color="mint">
   <AvatarImage src="/mochi-avatar.svg" alt="Mochi-chan" />
   <AvatarFallback>MC</AvatarFallback>
 </Avatar>
@@ -40,7 +40,7 @@ Wrap several in `AvatarGroup` to overlap them into a row; the one under the poin
 
 <PropsTable
   rows={[
-    { name: "variant", type: "\"sakura\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\"", default: "\"sakura\"", description: "Flavour of the edge and the fallback." },
+    { name: "color", type: "\"sakura\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\"", default: "\"sakura\"", description: "Colour of the edge and the fallback." },
     { name: "size", type: "\"sm\" | \"default\" | \"lg\"", default: "\"default\"", description: "Diameter: 32, 44 or 64 px." },
     { name: "emote", type: "string", description: "A mark such as ♪, ♡ or ！ that pops off the avatar on hover." },
     { name: "delayMs", type: "number", description: "Set on AvatarFallback. Wait before showing it, to avoid a flash on fast connections." },

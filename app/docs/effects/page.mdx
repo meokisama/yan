@@ -34,19 +34,35 @@ import { fxRecipes } from "@/lib/yan-fx"
 
 A recipe is a plain object, so spread it to adjust one: `fx={{ ...fxRecipes.petals, count: 30 }}`.
 
+## Try it everywhere
+
+Pick a recipe, then poke each component. `Default` is what it does with no `fx`.
+
+<FxPlayground />
+
 ## The fx prop
 
 `fx` is merged over the component's own burst, so you only write what you change.
+Some bursts only fire in kawaii mode: Dialog, Popover, Select, Tabs and Tooltip.
 
 <PropsTable
   rows={[
+    { name: "Accordion", type: "fx", description: "The burst from the arrow when a row opens." },
     { name: "Button", type: "fx", description: "The click burst." },
-    { name: "Checkbox", type: "fx", description: "The sparkles when it is checked." },
-    { name: "Switch", type: "fx", description: "The sparkles when it turns on." },
-    { name: "Slider", type: "fx", description: "The burst when a drag ends." },
-    { name: "Input", type: "fx", description: "The per-keystroke burst." },
-    { name: "Progress", type: "fx", description: "The party at 100%." },
+    { name: "Card", type: "fx", description: "The click burst of an interactive card." },
+    { name: "Checkbox", type: "fx", description: "The sparkles when it is checked. In kawaii mode they join the bloom only when you pass fx." },
     { name: "DialogContent", type: "fx", description: "The burst when the dialog opens." },
+    { name: "DropdownMenuContent", type: "fx", description: "The burst from the item you pick." },
+    { name: "Input", type: "fx", description: "The per-keystroke burst." },
+    { name: "PopoverContent", type: "fx", description: "The burst when the popover opens." },
+    { name: "Progress", type: "fx", description: "The party at 100%." },
+    { name: "RadioGroup", type: "fx", description: "The burst from the chosen radio." },
+    { name: "Select", type: "fx", description: "The burst when the heart lands on the trigger." },
+    { name: "Skeleton", type: "fx", description: "The burst when its content arrives." },
+    { name: "Slider", type: "fx", description: "The burst when a drag ends." },
+    { name: "Switch", type: "fx", description: "The splash when the thumb lands." },
+    { name: "TabsList", type: "fx", description: "The sparkles where the candy lands." },
+    { name: "Textarea", type: "fx", description: "The per-keystroke burst." },
     { name: "TooltipContent", type: "fx", description: "The glint when the bubble pops in." },
     { name: "toast()", type: "fx", description: "The burst from the candy mark." },
   ]}

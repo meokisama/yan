@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/badge"
 ```
 
 ```tsx
-<Badge variant="mint">Fresh</Badge>
+<Badge color="mint">Fresh</Badge>
 ```
 
 Add `dot` for a twinkling status dot, or `asChild` to make a link look like a badge:
@@ -29,7 +29,7 @@ Add `dot` for a twinkling status dot, or `asChild` to make a link look like a ba
 ```tsx
 <Badge dot>New</Badge>
 
-<Badge asChild variant="sky">
+<Badge asChild color="sky">
   <a href="/changelog">v0.2</a>
 </Badge>
 ```
@@ -44,7 +44,8 @@ Add `dot` for a twinkling status dot, or `asChild` to make a link look like a ba
 
 <PropsTable
   rows={[
-    { name: "variant", type: "\"default\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\" | \"outline\"", default: "\"default\"", description: "Candy flavour." },
+    { name: "color", type: "\"sakura\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\"", default: "\"sakura\"", description: "Candy colour." },
+    { name: "variant", type: "\"default\" | \"outline\"", default: "\"default\"", description: "A candy fill, or a white sticker with a coloured rim." },
     { name: "dot", type: "boolean", default: "false", description: "Show a twinkling dot before the label." },
     { name: "asChild", type: "boolean", default: "false", description: "Merge props onto the child element instead of rendering a <span>." },
   ]}

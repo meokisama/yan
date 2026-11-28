@@ -29,12 +29,10 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: `${candy} bg-primary text-primary-foreground [--yan-c:var(--primary)] [--yan-edge:var(--yan-sakura-edge)]`,
-        secondary: `${candy} bg-secondary text-secondary-foreground [--yan-c:var(--secondary)] [--yan-edge:var(--yan-lavender-edge)]`,
-        mint: `${candy} bg-yan-mint text-yan-mint-foreground [--yan-c:var(--yan-mint)] [--yan-edge:var(--yan-mint-edge)]`,
+        default: `${candy} bg-(--yan-c)`,
         destructive: `${candy} bg-destructive text-destructive-foreground [--yan-c:var(--destructive)] [--yan-edge:var(--yan-coral-edge)]`,
         outline:
-          "border-2 border-primary bg-card text-foreground shadow-[0_4px_0_0_var(--primary)] hover:-translate-y-0.5 hover:bg-accent data-[pressed]:translate-y-[3px] data-[pressed]:shadow-[0_1px_0_0_var(--primary)]",
+          "border-2 border-(--yan-c) bg-card text-foreground shadow-[0_4px_0_0_var(--yan-c)] hover:-translate-y-0.5 hover:bg-accent data-[pressed]:translate-y-[3px] data-[pressed]:shadow-[0_1px_0_0_var(--yan-c)]",
         ghost: "text-foreground hover:bg-accent data-[pressed]:bg-accent",
         link: "rounded-md text-yan-sakura-edge underline decoration-primary/0 decoration-wavy underline-offset-4 hover:decoration-primary",
       },
@@ -52,16 +50,46 @@ const buttonVariants = cva(
   }
 )
 
-/** Color recipe for each variant's burst, so the sparkles match the button. */
-const variantColors: Record<string, string[]> = {
-  default: ["--yan-fx-1", "--yan-fx-4", "--yan-fx-2"],
-  secondary: ["--yan-fx-2", "--yan-fx-5", "--yan-fx-1"],
-  mint: ["--yan-fx-3", "--yan-fx-5", "--yan-fx-4"],
-  destructive: ["--yan-fx-1", "--yan-fx-4"],
+/** Each candy colour: its surface and edge, its ink, and the burst colours that match it. */
+const colors = {
+  sakura: {
+    tint: "[--yan-c:var(--primary)] [--yan-edge:var(--yan-sakura-edge)]",
+    ink: "text-primary-foreground",
+    fx: ["--yan-fx-1", "--yan-fx-4", "--yan-fx-2"],
+  },
+  lavender: {
+    tint: "[--yan-c:var(--secondary)] [--yan-edge:var(--yan-lavender-edge)]",
+    ink: "text-secondary-foreground",
+    fx: ["--yan-fx-2", "--yan-fx-5", "--yan-fx-1"],
+  },
+  mint: {
+    tint: "[--yan-c:var(--yan-mint)] [--yan-edge:var(--yan-mint-edge)]",
+    ink: "text-yan-mint-foreground",
+    fx: ["--yan-fx-3", "--yan-fx-5", "--yan-fx-4"],
+  },
+  sky: {
+    tint: "[--yan-c:var(--yan-sky)] [--yan-edge:var(--yan-sky-edge)]",
+    ink: "text-yan-sky-foreground",
+    fx: ["--yan-fx-5", "--yan-fx-2", "--yan-fx-4"],
+  },
+  lemon: {
+    tint: "[--yan-c:var(--yan-lemon)] [--yan-edge:var(--yan-lemon-edge)]",
+    ink: "text-yan-lemon-foreground",
+    fx: ["--yan-fx-4", "--yan-fx-1", "--yan-fx-3"],
+  },
+  peach: {
+    tint: "[--yan-c:var(--yan-peach)] [--yan-edge:var(--yan-peach-edge)]",
+    ink: "text-yan-peach-foreground",
+    fx: ["--yan-fx-1", "--yan-fx-4"],
+  },
 }
+
+type ButtonColor = keyof typeof colors
 
 type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
+    /** Candy colour of the `default` and `outline` variants. */
+    color?: ButtonColor
     asChild?: boolean
     /**
      * How much moe. `"kawaii"` squishes like mochi, then lands with a soft
@@ -79,6 +107,7 @@ type ButtonProps = React.ComponentProps<"button"> &
 function Button({
   className,
   variant = "default",
+  color = "sakura",
   size = "default",
   asChild = false,
   intensity = "kawaii",
@@ -133,9 +162,15 @@ function Button({
     <Comp
       data-slot="button"
       data-variant={variant}
+      data-color={color}
       data-size={size}
       data-intensity={intensity}
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size }),
+        variant !== "destructive" && colors[color].tint,
+        variant === "default" && colors[color].ink,
+        className
+      )}
       onPointerDown={(e: React.PointerEvent<HTMLButtonElement>) => {
         onPointerDown?.(e)
         if (e.button === 0 && !e.defaultPrevented) press(e.currentTarget)
@@ -158,11 +193,12 @@ function Button({
         const preset = fxPresets[intensity]
         const word =
           intensity === "kawaii" && sfx !== false ? (sfx ?? pickWord()) : null
-        const colors = variantColors[variant ?? "default"]
-        burstFromEvent(e, { ...preset, colors, word, ...fx })
+        const palette =
+          variant === "destructive" ? ["--yan-fx-1", "--yan-fx-4"] : variant === "default" || variant === "outline" ? colors[color].fx : undefined
+        burstFromEvent(e, { ...preset, colors: palette, word, ...fx })
         // Kawaii candy buttons get the full beat: a soft glow, emphasis
         // lines and clouds rolling off both ends.
-        if (intensity === "kawaii" && squishes) impact(e.currentTarget, { color: colors?.[0] })
+        if (intensity === "kawaii" && squishes) impact(e.currentTarget, { color: palette?.[0] })
       }}
       {...props}
     />
@@ -170,4 +206,4 @@ function Button({
 }
 
 export { Button, buttonVariants }
-export type { ButtonProps }
+export type { ButtonProps, ButtonColor }

@@ -40,17 +40,25 @@ New to shadcn? Start with the [installation guide](https://yan.moe/docs/installa
 
 ## ★ Components
 
+[Accordion](https://yan.moe/docs/components/accordion) ・
 [Avatar](https://yan.moe/docs/components/avatar) ・
 [Badge](https://yan.moe/docs/components/badge) ・
 [Button](https://yan.moe/docs/components/button) ・
+[Card](https://yan.moe/docs/components/card) ・
 [Checkbox](https://yan.moe/docs/components/checkbox) ・
 [Dialog](https://yan.moe/docs/components/dialog) ・
+[Dropdown Menu](https://yan.moe/docs/components/dropdown-menu) ・
 [Input](https://yan.moe/docs/components/input) ・
+[Label](https://yan.moe/docs/components/label) ・
+[Popover](https://yan.moe/docs/components/popover) ・
 [Progress](https://yan.moe/docs/components/progress) ・
+[Radio Group](https://yan.moe/docs/components/radio-group) ・
 [Select](https://yan.moe/docs/components/select) ・
+[Skeleton](https://yan.moe/docs/components/skeleton) ・
 [Slider](https://yan.moe/docs/components/slider) ・
 [Switch](https://yan.moe/docs/components/switch) ・
 [Tabs](https://yan.moe/docs/components/tabs) ・
+[Textarea](https://yan.moe/docs/components/textarea) ・
 [Toast](https://yan.moe/docs/components/toast) ・
 [Tooltip](https://yan.moe/docs/components/tooltip)
 

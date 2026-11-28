@@ -4,7 +4,7 @@ import * as React from "react"
 import { Tabs as TabsPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { prefersReducedMotion, puff, type YanIntensity } from "@/lib/yan-fx"
+import { burst, prefersReducedMotion, puff, type BurstOptions, type YanIntensity } from "@/lib/yan-fx"
 
 function Tabs({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Root>) {
   return <TabsPrimitive.Root data-slot="tabs" className={cn("flex flex-col gap-4", className)} {...props} />
@@ -17,6 +17,8 @@ type TabsListProps = React.ComponentProps<typeof TabsPrimitive.List> & {
    * `"off"`: it jumps.
    */
   intensity?: YanIntensity
+  /** Fine-tune the sparkles fired where the candy lands (kawaii only). */
+  fx?: BurstOptions
 }
 
 type Box = { top: number; right: number; bottom: number; left: number }
@@ -33,10 +35,15 @@ const tints = {
 type TabsColor = keyof typeof tints
 
 /** A tray of tabs. One gummy candy lives in it and travels to whichever tab is active. */
-function TabsList({ className, children, intensity = "kawaii", ...props }: TabsListProps) {
+function TabsList({ className, children, intensity = "kawaii", fx, ...props }: TabsListProps) {
   const list = React.useRef<HTMLDivElement>(null)
   const candy = React.useRef<HTMLSpanElement>(null)
   const box = React.useRef<Box | null>(null)
+  // kept in a ref: an inline `fx` object must not rebuild the observers below on every render
+  const options = React.useRef(fx)
+  React.useEffect(() => {
+    options.current = fx
+  })
 
   React.useEffect(() => {
     const el = list.current
@@ -90,10 +97,9 @@ function TabsList({ className, children, intensity = "kawaii", ...props }: TabsL
         setTimeout(() => {
           if (!tab.isConnected) return
           const r = tab.getBoundingClientRect()
-          puff(
-            { x: forward ? r.right - 4 : r.left + 4, y: r.bottom - 2 },
-            { count: 2, size: 8, angle: forward ? -0.4 : -Math.PI + 0.4, spread: 0.9 }
-          )
+          const point = { x: forward ? r.right - 4 : r.left + 4, y: r.bottom - 2 }
+          puff(point, { count: 2, size: 8, angle: forward ? -0.4 : -Math.PI + 0.4, spread: 0.9 })
+          burst(point, { shapes: ["sparkle"], count: 3, power: 0.35, size: 6, ...options.current })
         }, 260)
       }
     }

@@ -1,0 +1,68 @@
+export const metadata = {
+  title: "Card",
+  description: "A puffy card in six flavours that leans toward the pointer and wobbles like jelly.",
+}
+
+# Card
+
+A puffy card on a candy edge, with a wash of its colour across the top. Make
+it `interactive` and it leans toward the pointer, catches a glare, grows a
+star on its corner and wobbles like jelly when you click it. ぷるん
+
+<ComponentPreview name="card-demo" />
+
+## Installation
+
+<InstallCommand item="card" />
+
+## Usage
+
+```tsx
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+```
+
+```tsx
+<Card color="mint">
+  <CardHeader>
+    <CardTitle>Matcha roll</CardTitle>
+    <CardDescription>Whipped cream, red bean, a little bitter.</CardDescription>
+  </CardHeader>
+  <CardContent>…</CardContent>
+</Card>
+```
+
+## Examples
+
+### Interactive
+
+`interactive` turns the whole card into one target. Move the pointer over it
+and it leans after you with a glare; click and it squashes, throws emphasis
+lines and dust, and bursts. Pair it with `asChild` and a link or a button so
+it can be focused. Each card here takes a different recipe from [Effects](/docs/effects).
+
+<ComponentPreview name="card-interactive" />
+
+```tsx
+<Card interactive asChild fx={fxRecipes.petals}>
+  <Link href="/sakura">…</Link>
+</Card>
+```
+
+## Accessibility
+
+- A plain card is a `<div>` with no role. Give it a heading inside.
+- An interactive card needs `asChild` with a link or a button: a bare `<div>` cannot be reached by keyboard.
+- The lean and the glare follow a mouse or a pen, not a finger.
+- With `prefers-reduced-motion: reduce`, the lean, the wobble and the particles are skipped.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "color", type: "\"sakura\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\"", default: "\"sakura\"", description: "Colour of the rim, the wash and the edge underneath." },
+    { name: "interactive", type: "boolean", default: "false", description: "Lean, glare, press and a click burst for the whole card." },
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "For an interactive card. kawaii: lean, glare, corner star, then wobble, lines, dust and a burst on click. subtle: a lift and a few sparkles. off: none." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the click burst of an interactive card." },
+    { name: "asChild", type: "boolean", default: "false", description: "Merge props onto the child element instead of rendering a <div>." },
+  ]}
+/>

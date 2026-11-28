@@ -43,6 +43,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 <PropsTable
   rows={[
     { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "Set on TabsList. kawaii: mochi stretch and a landing puff. subtle: the candy slides. off: it jumps." },
+    { name: "fx", type: "BurstOptions", description: "Set on TabsList. Overrides for the sparkles where the candy lands (kawaii only)." },
     { name: "color", type: "\"sakura\" | \"lavender\" | \"mint\" | \"sky\" | \"lemon\" | \"peach\"", default: "\"sakura\"", description: "Set on TabsTrigger. The candy's colour while that tab is active." },
     { name: "value / defaultValue", type: "string", description: "Set on Tabs. The active tab." },
     { name: "onValueChange", type: "(value: string) => void", description: "Set on Tabs. Called when the active tab changes." },

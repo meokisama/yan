@@ -12,7 +12,7 @@ export default function ProgressDemo() {
       <Progress value={value} aria-label="Snack level" />
       <Button
         size="sm"
-        variant="mint"
+        color="mint"
         sfx="もぐもぐ"
         onClick={() => setValue((v) => (v >= 100 ? 0 : Math.min(100, v + 20)))}
       >

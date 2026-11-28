@@ -10,16 +10,16 @@ export default function FxRecipes() {
       <Button fx={fxRecipes.hearts} sfx="ドキッ">
         Hearts
       </Button>
-      <Button variant="secondary" fx={fxRecipes.stars} sfx="ピカッ">
+      <Button color="lavender" fx={fxRecipes.stars} sfx="ピカッ">
         Stars
       </Button>
-      <Button variant="secondary" fx={fxRecipes.petals} sfx="ひらひら">
+      <Button color="lavender" fx={fxRecipes.petals} sfx="ひらひら">
         Petals
       </Button>
-      <Button variant="mint" fx={fxRecipes.bubbles} sfx="ぷくぷく">
+      <Button color="mint" fx={fxRecipes.bubbles} sfx="ぷくぷく">
         Bubbles
       </Button>
-      <Button variant="mint" fx={fxRecipes.confetti} sfx="やった！">
+      <Button color="mint" fx={fxRecipes.confetti} sfx="やった！">
         Confetti
       </Button>
     </div>

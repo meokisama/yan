@@ -4,10 +4,27 @@ import * as React from "react"
 import Link from "next/link"
 import { BellIcon, HeartIcon, MoonStarIcon, SparklesIcon, StarIcon, Volume2Icon } from "lucide-react"
 
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Card as YanCard, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Label } from "@/components/ui/label"
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Textarea } from "@/components/ui/textarea"
+import { fxRecipes } from "@/lib/yan-fx"
 import {
   Dialog,
   DialogClose,
@@ -93,10 +110,10 @@ function Buttons() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-5">
       <Button size="lg">Sakura</Button>
-      <Button size="lg" variant="secondary" sfx="キラッ">
+      <Button size="lg" color="lavender" sfx="キラッ">
         Lavender
       </Button>
-      <Button size="lg" variant="mint" sfx="ぽよん">
+      <Button size="lg" color="mint" sfx="ぽよん">
         Mint
       </Button>
       <Button variant="outline">Outline</Button>
@@ -104,7 +121,7 @@ function Buttons() {
         <HeartIcon className="fill-current" />
       </Button>
       <Button
-        variant="secondary"
+        color="lavender"
         sfx="ひらひら"
         fx={{ shapes: ["petal"], colors: ["--yan-fx-1", "--yan-sakura"], count: 22, power: 0.9, size: 10 }}
       >
@@ -199,7 +216,7 @@ function Snack() {
       <Progress value={value} aria-label="Snack level" />
       <Button
         size="sm"
-        variant="mint"
+        color="mint"
         sfx="もぐもぐ"
         onClick={() => setValue((x) => (x >= 100 ? 0 : Math.min(100, x + 20)))}
       >
@@ -213,11 +230,11 @@ function Stickers() {
   const spin = ["-rotate-6", "rotate-3", "-rotate-2", "rotate-6", "-rotate-3", "rotate-2", "-rotate-5"]
   const badges = [
     <Badge key="a" dot>New</Badge>,
-    <Badge key="b" variant="lavender">Dreamy</Badge>,
-    <Badge key="c" variant="mint">Fresh</Badge>,
-    <Badge key="d" variant="lemon">★ Top pick</Badge>,
-    <Badge key="e" variant="sky">Calm</Badge>,
-    <Badge key="f" variant="peach">Limited</Badge>,
+    <Badge key="b" color="lavender">Dreamy</Badge>,
+    <Badge key="c" color="mint">Fresh</Badge>,
+    <Badge key="d" color="lemon">★ Top pick</Badge>,
+    <Badge key="e" color="sky">Calm</Badge>,
+    <Badge key="f" color="peach">Limited</Badge>,
     <Badge key="g" variant="outline">ぷにっ</Badge>,
   ]
   return (
@@ -306,13 +323,13 @@ function Friends() {
           <AvatarImage src="/mochi-avatar.svg" alt="Mochi-chan" />
           <AvatarFallback>MC</AvatarFallback>
         </Avatar>
-        <Avatar size="lg" variant="lavender" emote="♡">
+        <Avatar size="lg" color="lavender" emote="♡">
           <AvatarFallback>YU</AvatarFallback>
         </Avatar>
-        <Avatar size="lg" variant="mint" emote="！">
+        <Avatar size="lg" color="mint" emote="！">
           <AvatarFallback>MI</AvatarFallback>
         </Avatar>
-        <Avatar size="lg" variant="lemon">
+        <Avatar size="lg" color="lemon">
           <AvatarFallback>+3</AvatarFallback>
         </Avatar>
       </AvatarGroup>
@@ -361,7 +378,7 @@ function Toasts() {
       </Button>
       <Button
         size="sm"
-        variant="mint"
+        color="mint"
         sfx={false}
         onClick={() => toast.success("Saved!", { description: "Your snack list is safe and sound." })}
       >
@@ -381,22 +398,157 @@ function Toasts() {
 
 function Hints() {
   const hints = [
-    { icon: HeartIcon, label: "Like", tip: "Send a little heart ♡", variant: "default" },
-    { icon: StarIcon, label: "Favourite", tip: "Keep it in your sticker book", variant: "secondary" },
-    { icon: BellIcon, label: "Notify me", tip: "We will ring a tiny bell", variant: "mint" },
+    { icon: HeartIcon, label: "Like", tip: "Send a little heart ♡", color: "sakura" },
+    { icon: StarIcon, label: "Favourite", tip: "Keep it in your sticker book", color: "lavender" },
+    { icon: BellIcon, label: "Notify me", tip: "We will ring a tiny bell", color: "mint" },
   ] as const
   return (
     <div className="flex items-center justify-center gap-4">
       {hints.map((h) => (
         <Tooltip key={h.label}>
           <TooltipTrigger asChild>
-            <Button size="icon" variant={h.variant} aria-label={h.label} intensity="subtle">
+            <Button size="icon" color={h.color} aria-label={h.label} intensity="subtle">
               <h.icon />
             </Button>
           </TooltipTrigger>
           <TooltipContent>{h.tip}</TooltipContent>
         </Tooltip>
       ))}
+    </div>
+  )
+}
+
+function Treat() {
+  return (
+    <YanCard color="mint" interactive asChild fx={fxRecipes.bubbles} className="w-full max-w-64">
+      <button type="button">
+        <CardHeader>
+          <CardTitle>Matcha roll</CardTitle>
+          <CardDescription>The whole card is a button. Tap it and it wobbles.</CardDescription>
+        </CardHeader>
+      </button>
+    </YanCard>
+  )
+}
+
+function Faq() {
+  return (
+    <Accordion type="single" collapsible className="max-w-xs">
+      <AccordionItem value="keep">
+        <AccordionTrigger>How long does mochi keep?</AccordionTrigger>
+        <AccordionContent>A day. After that, warm it for a few seconds.</AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="share">
+        <AccordionTrigger>Do I have to share?</AccordionTrigger>
+        <AccordionContent>Mochi-chan says yes. ぷにっ</AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  )
+}
+
+function BoxSize() {
+  const sizes = ["Small", "Regular", "Party box"]
+  return (
+    <RadioGroup defaultValue="Regular" aria-label="Box size">
+      {sizes.map((s) => (
+        <div key={s} className="flex items-center gap-3">
+          <RadioGroupItem value={s} id={`toy-size-${s}`} />
+          <Label htmlFor={`toy-size-${s}`} className="cursor-pointer">
+            {s}
+          </Label>
+        </div>
+      ))}
+    </RadioGroup>
+  )
+}
+
+function Note() {
+  return (
+    <div className="flex w-full max-w-60 flex-col gap-2">
+      <Label htmlFor="toy-note">A note for the baker</Label>
+      <Textarea id="toy-note" placeholder="Extra red bean, please ♡" className="min-h-20" />
+    </div>
+  )
+}
+
+function Namer() {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button color="lavender" sfx={false}>
+          Name your mochi
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="flex flex-col gap-3">
+        <Label htmlFor="toy-mochi-name">Name</Label>
+        <Input id="toy-mochi-name" defaultValue="Daifuku" className="text-base sm:text-sm" />
+        <PopoverClose asChild>
+          <Button size="sm" sfx="よろしく！" className="self-end">
+            Save
+          </Button>
+        </PopoverClose>
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+function Menu() {
+  const [sprinkles, setSprinkles] = React.useState(true)
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button color="mint" sfx={false}>
+          Mochi menu
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-52">
+        <DropdownMenuLabel>Order</DropdownMenuLabel>
+        <DropdownMenuItem>Add to box</DropdownMenuItem>
+        <DropdownMenuItem>Send as a gift</DropdownMenuItem>
+        <DropdownMenuCheckboxItem checked={sprinkles} onCheckedChange={setSprinkles}>
+          Sprinkles
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem variant="destructive">Empty the box</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+function Field() {
+  return (
+    <div className="flex w-full max-w-60 flex-col gap-2">
+      <Label htmlFor="toy-email" required>
+        Email
+      </Label>
+      <Input id="toy-email" type="email" placeholder="mochi@yan.moe" className="text-base sm:text-sm" />
+    </div>
+  )
+}
+
+function Loading() {
+  const [loaded, setLoaded] = React.useState(false)
+  return (
+    <div className="flex w-full max-w-60 flex-col items-center gap-4">
+      <div className="flex h-16 w-full items-center gap-3">
+        <Skeleton loaded={loaded} className="size-14 shrink-0 rounded-full">
+          <Avatar size="lg">
+            <AvatarImage src="/mochi-avatar.svg" alt="Mochi-chan" />
+            <AvatarFallback>MC</AvatarFallback>
+          </Avatar>
+        </Skeleton>
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
+          <Skeleton loaded={loaded} className="h-3.5 w-3/5 rounded-full">
+            <p className="truncate text-sm font-black">Mochi-chan</p>
+          </Skeleton>
+          <Skeleton loaded={loaded} className="h-3 rounded-full">
+            <p className="truncate text-sm font-bold text-foreground/70">is here ♡</p>
+          </Skeleton>
+        </div>
+      </div>
+      <Button size="sm" variant="outline" intensity="subtle" onClick={() => setLoaded((v) => !v)}>
+        {loaded ? "Again" : "Load"}
+      </Button>
     </div>
   )
 }
@@ -448,6 +600,30 @@ export function ToyBox() {
         </Card>
         <Card name="Tooltip" href="/docs/components/tooltip" tint="lavender" className="md:col-span-2" pattern="bg-candy-stripes" delay={0.12}>
           <Hints />
+        </Card>
+        <Card name="Card" href="/docs/components/card" tint="mint" className="md:col-span-3" stage="min-h-44" pattern="bg-dots">
+          <Treat />
+        </Card>
+        <Card name="Accordion" href="/docs/components/accordion" tint="sakura" className="md:col-span-3" stage="min-h-44" delay={0.06}>
+          <Faq />
+        </Card>
+        <Card name="Radio Group" href="/docs/components/radio-group" tint="lemon" className="md:col-span-2" stage="min-h-44">
+          <BoxSize />
+        </Card>
+        <Card name="Textarea" href="/docs/components/textarea" tint="sky" className="md:col-span-2" delay={0.06}>
+          <Note />
+        </Card>
+        <Card name="Popover" href="/docs/components/popover" tint="lavender" className="md:col-span-2" pattern="bg-gingham" delay={0.12}>
+          <Namer />
+        </Card>
+        <Card name="Dropdown Menu" href="/docs/components/dropdown-menu" tint="peach" className="md:col-span-2" stage="min-h-40" pattern="bg-candy-stripes">
+          <Menu />
+        </Card>
+        <Card name="Label" href="/docs/components/label" tint="mint" className="md:col-span-2" delay={0.06}>
+          <Field />
+        </Card>
+        <Card name="Skeleton" href="/docs/components/skeleton" tint="sakura" className="md:col-span-2" delay={0.12}>
+          <Loading />
         </Card>
       </div>
     </section>

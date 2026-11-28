@@ -4,7 +4,7 @@ import * as React from "react"
 import { Select as SelectPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { fly, prefersReducedMotion, type FxPoint, type YanIntensity } from "@/lib/yan-fx"
+import { fly, prefersReducedMotion, type BurstOptions, type FxPoint, type YanIntensity } from "@/lib/yan-fx"
 
 type SelectFx = {
   intensity: YanIntensity
@@ -17,14 +17,17 @@ const SelectFxContext = React.createContext<SelectFx | null>(null)
 
 type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
   /**
-   * How much moe. `"kawaii"`: the menu pops open, and the option you pick
-   * sends a heart flying back to the trigger, which wobbles as it lands.
-   * `"subtle"`: the menu fades. `"off"`: it just appears.
+   * How much moe. `"kawaii"`: the menu pops open, a gummy highlight stretches
+   * from option to option, and the one you pick sends a heart flying back to
+   * the trigger, which wobbles as it lands. `"subtle"`: the menu fades and the
+   * highlight slides. `"off"`: it just appears, with a flat highlight.
    */
   intensity?: YanIntensity
+  /** Fine-tune the burst fired when the heart lands on the trigger (kawaii only). */
+  fx?: BurstOptions
 }
 
-function Select({ intensity = "kawaii", onValueChange, ...props }: SelectProps) {
+function Select({ intensity = "kawaii", fx: arrive, onValueChange, ...props }: SelectProps) {
   const trigger = React.useRef<HTMLButtonElement>(null)
   const picked = React.useRef<FxPoint | null>(null)
   const fx = React.useMemo<SelectFx>(
@@ -52,6 +55,7 @@ function Select({ intensity = "kawaii", onValueChange, ...props }: SelectProps) 
           if (intensity !== "kawaii" || !from || !to || prefersReducedMotion()) return
           const r = to.getBoundingClientRect()
           fly(from, { x: r.left + 22, y: r.top + r.height / 2 }, {
+            arrive,
             onArrive: () =>
               to.animate(
                 [
@@ -117,6 +121,55 @@ function SelectTrigger({ className, children, ref, ...props }: React.ComponentPr
   )
 }
 
+/** The highlight: one gummy candy that lives in the menu and stretches to whichever option is active. */
+function SelectGlide({ intensity }: { intensity: YanIntensity }) {
+  const ref = React.useRef<HTMLSpanElement>(null)
+
+  React.useEffect(() => {
+    const pill = ref.current
+    const menu = pill?.parentElement
+    if (!pill || !menu) return
+    let prev: number | null = null
+
+    const place = () => {
+      const item = menu.querySelector<HTMLElement>("[data-highlighted]")
+      if (!item) {
+        pill.style.opacity = "0"
+        prev = null
+        return
+      }
+      const top = item.offsetTop + 1
+      const bottom = menu.clientHeight - item.offsetTop - item.offsetHeight + 4
+      if (prev === null || prefersReducedMotion()) pill.style.transition = "none"
+      else if (intensity === "subtle") pill.style.transition = "top 0.15s ease-out, bottom 0.15s ease-out"
+      else {
+        // Mochi stretch: the leading edge shoots ahead, the trailing edge snaps after it.
+        const lead = "0.14s cubic-bezier(.3,.9,.3,1)"
+        const trail = "0.3s cubic-bezier(.34,1.6,.5,1) 0.04s"
+        pill.style.transition = top > prev ? `bottom ${lead}, top ${trail}` : `top ${lead}, bottom ${trail}`
+      }
+      prev = top
+      pill.style.top = `${top}px`
+      pill.style.bottom = `${bottom}px`
+      pill.style.opacity = "1"
+    }
+
+    place()
+    const mo = new MutationObserver(place)
+    mo.observe(menu, { attributes: true, attributeFilter: ["data-highlighted"], subtree: true })
+    return () => mo.disconnect()
+  }, [intensity])
+
+  return (
+    <span
+      ref={ref}
+      aria-hidden="true"
+      data-slot="select-candy"
+      className="yan-candy pointer-events-none absolute inset-x-1.5 -z-10 rounded-2xl opacity-0 [--yan-depth:3px]"
+    />
+  )
+}
+
 type SelectContentProps = React.ComponentProps<typeof SelectPrimitive.Content> & {
   /** Overrides the `intensity` set on `Select` for this menu's entrance. */
   intensity?: YanIntensity
@@ -152,8 +205,11 @@ function SelectContent({
         )}
         {...props}
       >
-        {/* No padding: an option's highlight runs edge to edge and the menu's corners clip it. */}
-        <SelectPrimitive.Viewport className="w-full">{children}</SelectPrimitive.Viewport>
+        {/* off: no padding, so the flat highlight runs edge to edge and the menu's corners clip it. */}
+        <SelectPrimitive.Viewport className={cn("isolate w-full", intensity !== "off" && "py-1.5")}>
+          {intensity !== "off" && <SelectGlide intensity={intensity} />}
+          {children}
+        </SelectPrimitive.Viewport>
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
   )
@@ -188,9 +244,15 @@ function SelectItem({
       data-slot="select-item"
       className={cn(
         "relative flex w-full cursor-pointer items-center gap-2 py-2.5 pr-11 pl-5 text-sm font-bold outline-none select-none",
-        "data-[highlighted]:bg-accent data-[state=checked]:font-extrabold data-[state=checked]:text-yan-sakura-edge dark:data-[state=checked]:text-primary",
-        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        fx?.intensity === "off" ? "transition-colors" : "transition-[background-color,padding] duration-150 data-[highlighted]:pl-6.5",
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[state=checked]:font-extrabold [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        // off: a flat highlight. Otherwise the gummy in SelectGlide is the highlight, and the text takes its ink.
+        fx?.intensity === "off"
+          ? "data-[highlighted]:bg-accent data-[state=checked]:text-yan-sakura-edge dark:data-[state=checked]:text-primary"
+          : [
+              "transition-[color,padding] duration-150 data-[highlighted]:pl-6.5",
+              "data-[highlighted]:text-primary-foreground data-[highlighted]:[text-shadow:0_1px_0_rgb(255_255_255/0.4)]",
+              "data-[state=checked]:not-data-[highlighted]:text-yan-sakura-edge dark:data-[state=checked]:not-data-[highlighted]:text-primary",
+            ],
         className
       )}
       onPointerUp={(e) => {

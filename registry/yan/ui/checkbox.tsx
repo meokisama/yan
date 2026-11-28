@@ -12,7 +12,7 @@ type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root> & {
    * lets its petals drift away. `"subtle"`: a few sparkles. `"off"`: neither.
    */
   intensity?: YanIntensity
-  /** Fine-tune the sparkles fired when the box is checked (subtle mode). */
+  /** Fine-tune the sparkles fired when the box is checked. In kawaii mode, passing it adds a burst to the bloom. */
   fx?: BurstOptions
 }
 
@@ -44,6 +44,7 @@ function Checkbox({ className, intensity = "kawaii", fx, onCheckedChange, ...pro
           return
         }
         bloom(el)
+        if (fx) burst(el, { shapes: ["sparkle"], count: 6, power: 0.5, size: 7, ...fx })
       }}
       {...props}
     >

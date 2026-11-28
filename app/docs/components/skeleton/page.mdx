@@ -1,0 +1,54 @@
+export const metadata = {
+  title: "Skeleton",
+  description: "A cotton-candy placeholder that swaps to its content with a pop of sparkles.",
+}
+
+# Skeleton
+
+A soft block that holds the place of something still loading. Cotton-candy
+colours drift across it with a glint, and when the content arrives it lands
+like jelly in a pop of sparkles. じゃーん
+
+<ComponentPreview name="skeleton-demo" />
+
+## Installation
+
+<InstallCommand item="skeleton" />
+
+## Usage
+
+```tsx
+import { Skeleton } from "@/components/ui/skeleton"
+```
+
+As a plain placeholder, size and round it with `className`:
+
+```tsx
+<Skeleton className="size-14 rounded-full" />
+<Skeleton className="h-4 w-40 rounded-full" />
+```
+
+Or pass `loaded` and let it do the swap. `className` styles the placeholder only:
+
+```tsx
+<Skeleton loaded={!!user} className="h-4 w-40 rounded-full">
+  <p>{user?.name}</p>
+</Skeleton>
+```
+
+For other bursts, pass a recipe from [Effects](/docs/effects): `<Skeleton loaded={ready} fx={fxRecipes.confetti}>`.
+
+## Accessibility
+
+- A skeleton says nothing to a screen reader. Put `aria-busy="true"` on the region that is loading.
+- With `prefers-reduced-motion: reduce`, the colours stop drifting and the content appears without the landing or the sparkles.
+
+## API
+
+<PropsTable
+  rows={[
+    { name: "intensity", type: "\"kawaii\" | \"subtle\" | \"off\"", default: "\"kawaii\"", description: "kawaii: drifting candy colours, then a jelly landing with sparkles. subtle: a slow pulse, then a fade. off: a still block, then a swap." },
+    { name: "loaded", type: "boolean", description: "false shows the placeholder, true shows children. Leave it out for a plain placeholder." },
+    { name: "fx", type: "BurstOptions", description: "Overrides for the burst when the content arrives." },
+  ]}
+/>

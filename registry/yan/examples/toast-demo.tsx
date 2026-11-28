@@ -13,7 +13,7 @@ export default function ToastDemo() {
         Say hi
       </Button>
       <Button
-        variant="mint"
+        color="mint"
         sfx={false}
         onClick={() => toast.success("Saved!", { description: "Your snack list is safe and sound." })}
       >
