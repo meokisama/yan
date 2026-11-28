@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site"
 const links = [
   { href: "/docs", label: "Docs" },
   { href: "/docs/components/button", label: "Components" },
-  { href: "/docs/theming", label: "Theming" },
+  { href: "/docs/effects", label: "Effects" },
 ]
 
 export function SiteHeader() {

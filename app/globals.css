@@ -44,6 +44,7 @@
   /* Where the plum night ink lives regardless of theme (marquee, footer). */
   --night: oklch(0.24 0.075 320);
   --night-deep: oklch(0.17 0.06 310);
+  --scroll-thumb: linear-gradient(135deg, color-mix(in oklch, var(--primary) 60%, white), var(--primary) 45%, var(--yan-sakura-edge));
 }
 
 @layer base {
@@ -52,7 +53,32 @@
   }
   html {
     scroll-padding-top: 6rem;
-    scrollbar-color: var(--primary) transparent;
+  }
+
+  /* Candy scrollbar: a 4px gummy pill floating in a 10px track. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background: var(--scroll-thumb) padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover,
+  ::-webkit-scrollbar-thumb:active {
+    border-width: 2px;
+  }
+  /* Firefox only. Chrome ignores the ::-webkit-scrollbar rules above once either property is set. */
+  @supports not selector(::-webkit-scrollbar) {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) transparent;
+    }
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -60,6 +86,19 @@
   ::selection {
     background: color-mix(in oklch, var(--primary) 70%, transparent);
     color: var(--primary-foreground);
+  }
+}
+
+/*
+ * A scroll box whose scrollbar only shows while it is hovered or holds focus.
+ * Set through the variable: the build drops a rule that puts :not() before ::-webkit-scrollbar-thumb.
+ */
+.scroll-quiet:not(:hover):not(:focus-within) {
+  --scroll-thumb: linear-gradient(transparent, transparent);
+}
+@supports not selector(::-webkit-scrollbar) {
+  .scroll-quiet:not(:hover):not(:focus-within) {
+    scrollbar-color: transparent transparent;
   }
 }
 
