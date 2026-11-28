@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Theming & intensity",
-  description: "Tokens, dark mode, the intensity dial and the yan-fx API.",
+  description: "Tokens, dark mode and the intensity dial.",
 }
 
 # Theming & intensity
@@ -40,48 +40,4 @@ Every Yan component accepts `intensity`:
 
 <ComponentPreview name="button-intensity" />
 
-## yan-fx
-
-All particles come from `lib/yan-fx.ts`. You can call it directly:
-
-```tsx
-import { burst } from "@/lib/yan-fx"
-
-// at a point in the viewport…
-burst({ x: 200, y: 120 }, { shapes: ["heart"], count: 12, word: "ドキッ" })
-
-// …or at the center of an element
-burst(document.querySelector("#save")!, { shapes: ["petal"], count: 20 })
-```
-
-<PropsTable
-  rows={[
-    { name: "shapes", type: "FxShape[]", default: '["sparkle"]', description: "Shapes to pick from at random." },
-    { name: "count", type: "number", default: "10", description: "Number of particles." },
-    { name: "word", type: "string | null", default: "null", description: "Onomatopoeia sticker drawn at the origin." },
-    { name: "colors", type: "string[]", default: "--yan-fx-1 … 5", description: "CSS colors or custom property names." },
-    { name: "power", type: "number", default: "1", description: "Velocity multiplier." },
-    { name: "size", type: "number", default: "9", description: "Base particle size in px." },
-    { name: "angle / spread", type: "number", default: "up / full circle", description: "Aim the burst (radians)." },
-    { name: "gravity", type: "number", default: "420", description: "Downward pull in px/s²." },
-  ]}
-/>
-
-`burst()` is only one word in the vocabulary. The rest are small, authored
-effects that components combine into a beat:
-
-```tsx
-import { bloom, emote, fly, impact, puff, speedLines } from "@/lib/yan-fx"
-
-impact(button)                 // soft glow + emphasis lines + clouds off both ends
-puff(el, { count: 3 })         // "pofu" clouds, animated on twos
-speedLines(el)                 // manga emphasis lines around an element
-bloom(checkbox)                // a sakura unfolds around it, then lets its petals go
-emote(el, "！")                // an emotion mark popping off a corner
-fly(option, trigger)           // a heart that arcs from one element to another
-```
-
-Every one of them is a no-op under `prefers-reduced-motion: reduce`.
-
-> Shapes: `sparkle`, `heart`, `star`, `petal`, `bubble`, `dot`, `puff`. Colors accept any CSS
-> color or a custom property name such as `"--yan-fx-3"`.
+To change what a component throws, or to fire particles yourself, see [Effects](/docs/effects).

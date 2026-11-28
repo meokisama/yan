@@ -68,6 +68,18 @@ export const fxPresets: Record<Exclude<YanIntensity, "off">, BurstOptions> = {
   kawaii: { shapes: ["sparkle", "heart", "star", "dot"], count: 10, power: 1, size: 11, ring: true, wordStyle: "slam" },
 }
 
+export type FxRecipe = "sparkles" | "hearts" | "stars" | "petals" | "bubbles" | "confetti"
+
+/** Named bursts for a component's `fx` prop: `<Button fx={fxRecipes.hearts} />`. */
+export const fxRecipes: Record<FxRecipe, BurstOptions> = {
+  sparkles: { shapes: ["sparkle", "dot"], count: 14, power: 1.1, size: 10, ring: true },
+  hearts: { shapes: ["heart"], colors: ["--yan-fx-1", "--yan-sakura"], count: 9, power: 0.75, size: 12, spread: 1.5, gravity: 60, ring: false },
+  stars: { shapes: ["star", "sparkle"], colors: ["--yan-fx-4", "--yan-fx-2"], count: 10, power: 1.3, size: 11, ring: true },
+  petals: { shapes: ["petal"], colors: ["--yan-fx-1", "--yan-sakura"], count: 16, power: 0.8, size: 10, ring: false },
+  bubbles: { shapes: ["bubble"], colors: ["--yan-fx-5", "--yan-fx-3"], count: 9, power: 0.5, size: 11, spread: 2.2, ring: false },
+  confetti: { shapes: ["dot", "star", "heart", "sparkle"], colors: DEFAULT_COLORS, count: 24, power: 1.5, size: 8, spread: 1.4, gravity: 700, ring: false },
+}
+
 /** Words Yan reaches for when a component doesn't specify one. */
 export const fxWords = ["ぷにっ", "キラッ", "ぽよん", "ふわっ", "ドキッ"]
 

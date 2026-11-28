@@ -16,6 +16,7 @@ const nav: { title: string; mark: string; items: NavItem[] }[] = [
       { title: "Introduction", href: "/docs" },
       { title: "Installation", href: "/docs/installation" },
       { title: "Theming & intensity", href: "/docs/theming" },
+      { title: "Effects", href: "/docs/effects", isNew: true },
     ],
   },
   {

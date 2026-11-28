@@ -140,8 +140,8 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...spring, delay: 0.55 }}
           >
-            Yan is a shadcn-style library with a Japanese moe soul. Squishy, sparkly and accessible.
-            Built on Radix + Tailwind, copied straight into your app.
+            Kawaii React components that squish, sparkle and go ぷにっ. Built on Radix and Tailwind,
+            added to your app with the shadcn CLI.
           </motion.p>
 
           <motion.div

@@ -4,7 +4,7 @@ import * as React from "react"
 import { Tooltip as TooltipPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { burst, puff, type YanIntensity } from "@/lib/yan-fx"
+import { burst, puff, type BurstOptions, type YanIntensity } from "@/lib/yan-fx"
 
 function TooltipProvider({ delayDuration = 150, ...props }: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
   return <TooltipPrimitive.Provider data-slot="tooltip-provider" delayDuration={delayDuration} {...props} />
@@ -25,11 +25,15 @@ function TooltipTrigger(props: React.ComponentProps<typeof TooltipPrimitive.Trig
 type TooltipContentProps = React.ComponentProps<typeof TooltipPrimitive.Content> & {
   /** How much moe: `"kawaii"` pops in with a bounce, two puffs and a glint, `"subtle"` fades, `"off"` just appears. */
   intensity?: YanIntensity
+  /** Fine-tune the glint fired when the bubble pops in (kawaii only). */
+  fx?: BurstOptions
 }
 
 /** Fires once when the bubble mounts: two puffs and a sparkle where it sprang from. */
-function TooltipPop() {
+function TooltipPop({ fx }: { fx?: BurstOptions }) {
   const ref = React.useRef<HTMLSpanElement>(null)
+  // read once: an inline `fx` object must not replay the pop on every render
+  const options = React.useRef(fx)
   React.useEffect(() => {
     const el = ref.current?.parentElement
     if (!el) return
@@ -41,7 +45,7 @@ function TooltipPop() {
       const y = side === "bottom" ? r.top : side === "top" || !side ? r.bottom : r.top + r.height / 2
       puff({ x: x - 12, y }, { count: 1, size: 6, power: 0.4, angle: -Math.PI * 0.8, color: "--yan-fx-2" })
       puff({ x: x + 12, y }, { count: 1, size: 6, power: 0.4, angle: -Math.PI * 0.2, color: "--yan-fx-2" })
-      burst({ x: r.right - 4, y: r.top + 2 }, { shapes: ["sparkle"], count: 2, power: 0.3, size: 7, colors: ["--yan-fx-4"] })
+      burst({ x: r.right - 4, y: r.top + 2 }, { shapes: ["sparkle"], count: 2, power: 0.3, size: 7, colors: ["--yan-fx-4"], ...options.current })
     }, 90)
     return () => clearTimeout(t)
   }, [])
@@ -53,6 +57,7 @@ function TooltipContent({
   className,
   sideOffset = 8,
   intensity = "kawaii",
+  fx,
   children,
   ...props
 }: TooltipContentProps) {
@@ -74,7 +79,7 @@ function TooltipContent({
         {...props}
       >
         {children}
-        {intensity === "kawaii" && <TooltipPop />}
+        {intensity === "kawaii" && <TooltipPop fx={fx} />}
         <TooltipPrimitive.Arrow width={14} height={7} className="fill-foreground" />
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>

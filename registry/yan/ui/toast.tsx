@@ -4,7 +4,7 @@ import * as React from "react"
 import { Toast as ToastPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { burst, puff, type YanIntensity } from "@/lib/yan-fx"
+import { burst, puff, type BurstOptions, type YanIntensity } from "@/lib/yan-fx"
 
 type ToastVariant = "default" | "success" | "error"
 
@@ -16,6 +16,8 @@ type ToastOptions = {
   duration?: number
   /** Onomatopoeia sticker shown as the toast lands (kawaii only). `false` hides it. */
   sfx?: string | false
+  /** Fine-tune the burst from the candy mark. */
+  fx?: BurstOptions
 }
 
 type ToastItem = ToastOptions & { id: number; open: boolean }
@@ -107,7 +109,7 @@ function ToastCard({ item, intensity }: { item: ToastItem; intensity: YanIntensi
   const mark = React.useRef<HTMLSpanElement>(null)
   const card = React.useRef<HTMLLIElement>(null)
   const look = looks[item.variant ?? "default"]
-  const { sfx } = item
+  const { sfx, fx } = item
 
   React.useEffect(() => {
     if (intensity === "off") return
@@ -128,10 +130,11 @@ function ToastCard({ item, intensity }: { item: ToastItem; intensity: YanIntensi
           size: kawaii ? 9 : 6,
           word: kawaii && sfx !== false ? (sfx ?? look.sfx) : null,
           wordStyle: "slam",
+          ...fx,
         })
     }, 230)
     return () => clearTimeout(t)
-  }, [intensity, look, sfx])
+  }, [intensity, look, sfx, fx])
 
   return (
     <ToastPrimitive.Root

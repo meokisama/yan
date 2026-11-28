@@ -13,6 +13,8 @@ import ButtonIntensity from "@/registry/yan/examples/button-intensity"
 import ButtonSizes from "@/registry/yan/examples/button-sizes"
 import ButtonVariants from "@/registry/yan/examples/button-variants"
 import CheckboxDemo from "@/registry/yan/examples/checkbox-demo"
+import FxEffects from "@/registry/yan/examples/fx-effects"
+import FxRecipes from "@/registry/yan/examples/fx-recipes"
 import ProgressDemo from "@/registry/yan/examples/progress-demo"
 import SliderDemo from "@/registry/yan/examples/slider-demo"
 import SwitchDemo from "@/registry/yan/examples/switch-demo"
@@ -32,6 +34,8 @@ export const examples: Record<string, ComponentType> = {
   "button-sizes": ButtonSizes,
   "button-variants": ButtonVariants,
   "checkbox-demo": CheckboxDemo,
+  "fx-effects": FxEffects,
+  "fx-recipes": FxRecipes,
   "progress-demo": ProgressDemo,
   "slider-demo": SliderDemo,
   "switch-demo": SwitchDemo,

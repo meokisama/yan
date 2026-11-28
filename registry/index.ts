@@ -188,6 +188,8 @@ export const registryItems: RegistryItem[] = [
       ["dialog-demo", "dialog", "button"],
       ["avatar-demo", "avatar"],
       ["toast-demo", "toast", "button"],
+      ["fx-recipes", "button", "yan-fx"],
+      ["fx-effects", "button", "yan-fx"],
     ] as const
   ).map(
     ([name, ...deps]): RegistryItem => ({

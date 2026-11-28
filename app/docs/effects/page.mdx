@@ -1,0 +1,103 @@
+export const metadata = {
+  title: "Effects",
+  description: "Burst recipes, the fx prop and the rest of the yan-fx vocabulary.",
+}
+
+# Effects
+
+Every particle comes from `lib/yan-fx.ts`. Components fire it for you, and the
+`fx` prop lets you change what flies out. キラッ
+
+## Recipes
+
+`fxRecipes` are named bursts. Pass one to `fx` on any component that has it.
+
+<ComponentPreview name="fx-recipes" />
+
+```tsx
+import { Button } from "@/components/ui/button"
+import { fxRecipes } from "@/lib/yan-fx"
+
+<Button fx={fxRecipes.hearts}>Like</Button>
+```
+
+<PropsTable
+  rows={[
+    { name: "sparkles", type: "BurstOptions", description: "Sparkles and dots with a ring." },
+    { name: "hearts", type: "BurstOptions", description: "Pink hearts that float up." },
+    { name: "stars", type: "BurstOptions", description: "A fast pop of lemon and lavender stars." },
+    { name: "petals", type: "BurstOptions", description: "Sakura petals that drift down." },
+    { name: "bubbles", type: "BurstOptions", description: "Soap bubbles rising." },
+    { name: "confetti", type: "BurstOptions", description: "A tall fountain in all five colors." },
+  ]}
+/>
+
+A recipe is a plain object, so spread it to adjust one: `fx={{ ...fxRecipes.petals, count: 30 }}`.
+
+## The fx prop
+
+`fx` is merged over the component's own burst, so you only write what you change.
+
+<PropsTable
+  rows={[
+    { name: "Button", type: "fx", description: "The click burst." },
+    { name: "Checkbox", type: "fx", description: "The sparkles when it is checked." },
+    { name: "Switch", type: "fx", description: "The sparkles when it turns on." },
+    { name: "Slider", type: "fx", description: "The burst when a drag ends." },
+    { name: "Input", type: "fx", description: "The per-keystroke burst." },
+    { name: "Progress", type: "fx", description: "The party at 100%." },
+    { name: "DialogContent", type: "fx", description: "The burst when the dialog opens." },
+    { name: "TooltipContent", type: "fx", description: "The glint when the bubble pops in." },
+    { name: "toast()", type: "fx", description: "The burst from the candy mark." },
+  ]}
+/>
+
+## burst()
+
+Call it yourself for a moment no component covers:
+
+```tsx
+import { burst } from "@/lib/yan-fx"
+
+// at a point in the viewport…
+burst({ x: 200, y: 120 }, { shapes: ["heart"], count: 12, word: "ドキッ" })
+
+// …or at the center of an element
+burst(document.querySelector("#save")!, { shapes: ["petal"], count: 20 })
+```
+
+<PropsTable
+  rows={[
+    { name: "shapes", type: "FxShape[]", default: '["sparkle"]', description: "sparkle, heart, star, petal, bubble, dot or puff, used in turn." },
+    { name: "count", type: "number", default: "10", description: "Number of particles." },
+    { name: "word", type: "string | null", default: "null", description: "Onomatopoeia sticker drawn at the origin." },
+    { name: "wordStyle", type: '"pop" | "slam"', default: '"pop"', description: "pop springs up from nothing, slam lands from above." },
+    { name: "colors", type: "string[]", default: "--yan-fx-1 … 5", description: "CSS colors or custom property names." },
+    { name: "power", type: "number", default: "1", description: "Velocity multiplier." },
+    { name: "size", type: "number", default: "9", description: "Base particle size in px." },
+    { name: "angle / spread", type: "number", default: "up / full circle", description: "Aim the burst (radians)." },
+    { name: "gravity", type: "number", default: "420", description: "Downward pull in px/s². Petals, bubbles and puffs keep their own." },
+    { name: "ring", type: "boolean", default: "false", description: "A soft shockwave ring at the origin." },
+    { name: "lines", type: "boolean", default: "false", description: "Manga emphasis lines around the origin." },
+  ]}
+/>
+
+## Other effects
+
+`burst()` is one word in the vocabulary. The rest are small, authored effects
+that components combine into a beat:
+
+<ComponentPreview name="fx-effects" />
+
+```tsx
+import { bloom, emote, fly, impact, puff, speedLines } from "@/lib/yan-fx"
+
+impact(button)                 // soft glow + emphasis lines + clouds off both ends
+puff(el, { count: 3 })         // "pofu" clouds, animated on twos
+speedLines(el)                 // manga emphasis lines around an element
+bloom(checkbox)                // a sakura unfolds around it, then lets its petals go
+emote(el, "！")                // an emotion mark popping off a corner
+fly(option, trigger)           // a heart that arcs from one element to another
+```
+
+Every effect is a no-op under `prefers-reduced-motion: reduce`.
